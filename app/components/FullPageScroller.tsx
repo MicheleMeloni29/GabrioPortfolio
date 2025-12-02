@@ -38,6 +38,13 @@ export default function FullPageScroller({
         };
 
         const onWheel = (event: WheelEvent) => {
+            const target = event.target as HTMLElement | null;
+            const isHorizontalScroll = Math.abs(event.deltaX) > Math.abs(event.deltaY);
+            const allowsNativeScroll = target?.closest("[data-allow-scroll='true']");
+            if (isHorizontalScroll || allowsNativeScroll) {
+                return;
+            }
+
             event.preventDefault();
             if (isAnimating) return;
             if (event.deltaY > 0 && currentIndex < sections.length - 1) {

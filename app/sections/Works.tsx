@@ -8,6 +8,7 @@ export default function ProjectsSection() {
         >
             <div className="mx-auto flex max-w-6xl flex-col gap-10">
                 <div
+                    data-allow-scroll="true"
                     className="no-scrollbar mt-12 flex w-full snap-x snap-mandatory gap-6 overflow-x-auto pb-6 sm:mt-16 lg:mt-8"
                     role="list"
                     aria-label="Progetti in evidenza"
