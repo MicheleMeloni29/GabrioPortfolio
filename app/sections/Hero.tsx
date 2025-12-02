@@ -1,14 +1,38 @@
+'use client';
+import FuzzyText from "../components/FuzzyText";
+import GradientText from "../components/SplashColors";
+
+const hoverIntensity = 0.5;
+const enableHover = true;
+
 export default function Hero() {
     return (
         <section
             id="hero"
             className="snap-start flex h-screen w-full shrink-0 items-center justify-center bg-nero px-6 pt-28 pb-6 text-white"
         >
-            <div className="max-w-2xl text-center">
-                <h1 className="mt-4 text-4xl text-white sm:text-5xl">
+            <div className="max-w-2xl text-center mb-6">
+                <FuzzyText
+                    baseIntensity={0.2}
+                    hoverIntensity={0.5}
+                    enableHover
+                    className="mb-6">
                     DAL CUORE ALLA FORMA
-                </h1>
-                <h2 className="mt-2 text-2xl">L&apos;essenza diventa identita&apos;</h2>
+                </FuzzyText>
+                <GradientText
+                    colors={[
+                        "var(--color-bianco)",
+                        "var(--color-rame-sabbia)",
+                        "var(--color-bianco)",
+                        "var(--color-rame-sabbia)",
+                    ]}
+                    animationSpeed={2}
+                    showBorder={false}
+                    textClassName="text-3xl sm:text-4xl font-semibold tracking-wide"
+                    className="custom-class"
+                >
+                    L&apos;essenza diventa identita&apos;
+                </GradientText>
                 <h3 className="mt-1">Brand Design Studio - Italy / WorldWide</h3>
             </div>
         </section>
