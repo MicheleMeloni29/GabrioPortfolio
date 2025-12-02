@@ -13,8 +13,8 @@ export default function Hero() {
         >
             <div className="max-w-2xl text-center mb-6">
                 <FuzzyText
-                    fontSize="clamp(3.5rem, 18vw, 6rem)"
-                    baseIntensity={0.2}
+                    fontSize="clamp(4.5rem, 18vw, 6rem)"
+                    baseIntensity={0.1}
                     hoverIntensity={0.5}
                     enableHover
                     className="mb-6"
