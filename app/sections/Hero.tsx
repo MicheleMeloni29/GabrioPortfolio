@@ -13,11 +13,11 @@ export default function Hero() {
         >
             <div className="max-w-2xl text-center mb-6">
                 <FuzzyText
-                    fontSize="clamp(3rem, 18vw, 6rem)"
+                    fontSize="clamp(2.6rem, 10vw, 4rem)"
                     baseIntensity={0.1}
                     hoverIntensity={0.5}
                     enableHover
-                    className="mb-6 max-w-full"
+                    className="mb-6 max-w-full scale-[1.4] sm:scale-[1.1] lg:scale-[0.85] origin-center"
                 >
                     DAL CUORE ALLA FORMA
                 </FuzzyText>
