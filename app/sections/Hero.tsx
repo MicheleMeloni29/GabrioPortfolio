@@ -13,7 +13,7 @@ export default function Hero() {
         >
             <div className="max-w-2xl text-center mb-6">
                 <FuzzyText
-                    fontSize="clamp(2.8rem, 12vw, 6rem)"
+                    fontSize="clamp(3.5rem, 18vw, 6rem)"
                     baseIntensity={0.2}
                     hoverIntensity={0.5}
                     enableHover
@@ -35,7 +35,7 @@ export default function Hero() {
                 >
                     L&apos;essenza diventa identita&apos;
                 </GradientText>
-                <h3 className="mt-1">Brand Design Studio - Italy / WorldWide</h3>
+                <h3 className="mt-6">Brand Design Studio - Italy / WorldWide</h3>
             </div>
         </section>
     );
