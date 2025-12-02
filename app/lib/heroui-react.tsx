@@ -199,6 +199,8 @@ export function Button({
     if (!href) {
         throw new Error("Link buttons require an href.");
     }
+    // exclude href from the spread so it isn't passed twice
+    const { href: _href, ...linkProps } = props as ComponentProps<typeof NextLink>;
     return (
         <Component
             href={href}
@@ -207,7 +209,7 @@ export function Button({
                 variant === "flat" ? flatPalette : palette,
                 className
             )}
-            {...props}
+            {...linkProps}
         >
             {children}
         </Component>
