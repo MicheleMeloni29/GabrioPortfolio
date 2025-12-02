@@ -60,7 +60,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
                 document.body.removeChild(temp);
             }
 
-            const rawText = React.Children.toArray(children).join('');
+            const rawText = React.Children.toArray(children).join('').trim();
 
             const offscreen = document.createElement('canvas');
             const offCtx = offscreen.getContext('2d');
@@ -75,40 +75,39 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
             const actualAscent = metrics.actualBoundingBoxAscent ?? numericFontSize;
             const actualDescent = metrics.actualBoundingBoxDescent ?? numericFontSize * 0.2;
 
-            const tightHeight = Math.ceil(actualAscent + actualDescent);
-            const lineGap = Math.max(numericFontSize * 0.25, 10);
-
+            const baseLineHeight = Math.ceil(actualAscent + actualDescent);
             const viewportWidth = window.innerWidth;
-            const words = rawText.split(' ');
-            let lines: string[] = [rawText];
+            const idealWidth = Math.min(viewportWidth * 0.9, 900);
 
-            if (viewportWidth < 640 && words.length > 1) {
-                const targetWidth = viewportWidth * 0.85;
-                lines = [];
-                let currentLine = '';
+            const words = rawText.split(' ').filter(Boolean);
+            const lines: string[] = [];
+            let currentLine = '';
 
-                words.forEach((word) => {
-                    const candidate = currentLine.length ? `${currentLine} ${word}` : word;
+            if (words.length <= 1) {
+                lines.push(rawText);
+            } else {
+                for (const word of words) {
+                    const candidate = currentLine ? `${currentLine} ${word}` : word;
                     const candidateWidth = offCtx.measureText(candidate).width;
-                    if (candidateWidth > targetWidth && currentLine) {
+                    if (candidateWidth > idealWidth && currentLine) {
                         lines.push(currentLine);
                         currentLine = word;
                     } else {
                         currentLine = candidate;
                     }
-                });
-
+                }
                 if (currentLine) {
                     lines.push(currentLine);
                 }
             }
 
+            const lineGap = Math.max(numericFontSize * 0.18, 6);
             const lineWidths = lines.map((line) => offCtx.measureText(line).width);
             const widestLine = Math.max(...lineWidths, 1);
 
-            const extraWidthBuffer = 10;
+            const extraWidthBuffer = 20;
             const offscreenWidth = Math.ceil(widestLine + extraWidthBuffer);
-            const offscreenHeight = Math.ceil(lines.length * (tightHeight + lineGap));
+            const offscreenHeight = Math.ceil(lines.length * (baseLineHeight + lineGap));
 
             offscreen.width = offscreenWidth;
             offscreen.height = offscreenHeight;
@@ -122,11 +121,11 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
                 offCtx.fillText(line, xOffset, yOffset);
             });
 
-            const responsiveScale = Math.min(1, window.innerWidth / 768);
-            const horizontalMargin = Math.max(20, 50 * responsiveScale);
-            const verticalMargin = Math.max(0, 10 * responsiveScale);
+            const responsiveScale = Math.min(1, viewportWidth / 1024);
+            const horizontalMargin = Math.max(16, 40 * responsiveScale);
+            const verticalMargin = Math.max(0, 8 * responsiveScale);
             canvas.width = offscreenWidth + horizontalMargin * 2;
-            canvas.height = tightHeight + verticalMargin * 2;
+            canvas.height = offscreenHeight + verticalMargin * 2;
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.translate(horizontalMargin, verticalMargin);
 
