@@ -41,10 +41,7 @@ const SplitText: React.FC<SplitTextProps> = ({
     if (!ref.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsActive(true);
-          observer.disconnect();
-        }
+        setIsActive(entry.isIntersecting);
       },
       { threshold, rootMargin }
     );
