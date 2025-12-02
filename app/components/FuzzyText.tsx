@@ -68,7 +68,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
 
             offCtx.font = `${fontWeight} ${fontSizeStr} ${computedFontFamily}`;
             offCtx.textBaseline = 'alphabetic';
-            const metrics = offCtx.measureText(text);
+            const metrics = offCtx.measureText(rawText);
 
             const actualLeft = metrics.actualBoundingBoxLeft ?? 0;
             const actualRight = metrics.actualBoundingBoxRight ?? metrics.width;
