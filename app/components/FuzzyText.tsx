@@ -104,12 +104,14 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
             const interactiveBottom = interactiveTop + tightHeight;
 
             let isHovering = false;
-            const fuzzRange = 30;
+            const isMobile = window.innerWidth < 640;
+            const fuzzRange = isMobile ? 15 : 30;
+            const adjustedBaseIntensity = isMobile ? baseIntensity * 0.5 : baseIntensity;
 
             const run = () => {
                 if (isCancelled) return;
                 ctx.clearRect(-fuzzRange, -fuzzRange, offscreenWidth + 2 * fuzzRange, tightHeight + 2 * fuzzRange);
-                const intensity = isHovering ? hoverIntensity : baseIntensity;
+                const intensity = isHovering ? hoverIntensity : adjustedBaseIntensity;
                 for (let j = 0; j < tightHeight; j++) {
                     const dx = Math.floor(intensity * (Math.random() - 0.5) * fuzzRange);
                     ctx.drawImage(offscreen, 0, j, offscreenWidth, 1, dx, j, offscreenWidth, 1);

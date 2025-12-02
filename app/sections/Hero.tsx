@@ -13,10 +13,12 @@ export default function Hero() {
         >
             <div className="max-w-2xl text-center mb-6">
                 <FuzzyText
+                    fontSize="clamp(2.8rem, 12vw, 6rem)"
                     baseIntensity={0.2}
                     hoverIntensity={0.5}
                     enableHover
-                    className="mb-6">
+                    className="mb-6"
+                >
                     DAL CUORE ALLA FORMA
                 </FuzzyText>
                 <GradientText
