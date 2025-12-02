@@ -117,7 +117,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
             offCtx.textBaseline = 'alphabetic';
             offCtx.fillStyle = color;
             lines.forEach((line, index) => {
-                const yOffset = actualAscent + index * (tightHeight + lineGap);
+                const yOffset = actualAscent + index * (baseLineHeight + lineGap);
                 offCtx.fillText(line, xOffset, yOffset);
             });
 
