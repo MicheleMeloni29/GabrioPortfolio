@@ -60,7 +60,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
                 document.body.removeChild(temp);
             }
 
-            const text = React.Children.toArray(children).join('');
+            const rawText = React.Children.toArray(children).join('');
 
             const offscreen = document.createElement('canvas');
             const offCtx = offscreen.getContext('2d');
@@ -75,20 +75,52 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
             const actualAscent = metrics.actualBoundingBoxAscent ?? numericFontSize;
             const actualDescent = metrics.actualBoundingBoxDescent ?? numericFontSize * 0.2;
 
-            const textBoundingWidth = Math.ceil(actualLeft + actualRight);
             const tightHeight = Math.ceil(actualAscent + actualDescent);
+            const lineGap = Math.max(numericFontSize * 0.25, 10);
+
+            const viewportWidth = window.innerWidth;
+            const words = rawText.split(' ');
+            let lines: string[] = [rawText];
+
+            if (viewportWidth < 640 && words.length > 1) {
+                const targetWidth = viewportWidth * 0.85;
+                lines = [];
+                let currentLine = '';
+
+                words.forEach((word) => {
+                    const candidate = currentLine.length ? `${currentLine} ${word}` : word;
+                    const candidateWidth = offCtx.measureText(candidate).width;
+                    if (candidateWidth > targetWidth && currentLine) {
+                        lines.push(currentLine);
+                        currentLine = word;
+                    } else {
+                        currentLine = candidate;
+                    }
+                });
+
+                if (currentLine) {
+                    lines.push(currentLine);
+                }
+            }
+
+            const lineWidths = lines.map((line) => offCtx.measureText(line).width);
+            const widestLine = Math.max(...lineWidths, 1);
 
             const extraWidthBuffer = 10;
-            const offscreenWidth = textBoundingWidth + extraWidthBuffer;
+            const offscreenWidth = Math.ceil(widestLine + extraWidthBuffer);
+            const offscreenHeight = Math.ceil(lines.length * (tightHeight + lineGap));
 
             offscreen.width = offscreenWidth;
-            offscreen.height = tightHeight;
+            offscreen.height = offscreenHeight;
 
             const xOffset = extraWidthBuffer / 2;
             offCtx.font = `${fontWeight} ${fontSizeStr} ${computedFontFamily}`;
             offCtx.textBaseline = 'alphabetic';
             offCtx.fillStyle = color;
-            offCtx.fillText(text, xOffset - actualLeft, actualAscent);
+            lines.forEach((line, index) => {
+                const yOffset = actualAscent + index * (tightHeight + lineGap);
+                offCtx.fillText(line, xOffset, yOffset);
+            });
 
             const responsiveScale = Math.min(1, window.innerWidth / 768);
             const horizontalMargin = Math.max(20, 50 * responsiveScale);
@@ -100,8 +132,8 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
 
             const interactiveLeft = horizontalMargin + xOffset;
             const interactiveTop = verticalMargin;
-            const interactiveRight = interactiveLeft + textBoundingWidth;
-            const interactiveBottom = interactiveTop + tightHeight;
+            const interactiveRight = interactiveLeft + widestLine;
+            const interactiveBottom = interactiveTop + offscreenHeight;
 
             let isHovering = false;
             const isMobile = window.innerWidth < 640;
@@ -110,9 +142,9 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
 
             const run = () => {
                 if (isCancelled) return;
-                ctx.clearRect(-fuzzRange, -fuzzRange, offscreenWidth + 2 * fuzzRange, tightHeight + 2 * fuzzRange);
+                ctx.clearRect(-fuzzRange, -fuzzRange, offscreenWidth + 2 * fuzzRange, offscreenHeight + 2 * fuzzRange);
                 const intensity = isHovering ? hoverIntensity : adjustedBaseIntensity;
-                for (let j = 0; j < tightHeight; j++) {
+                for (let j = 0; j < offscreenHeight; j++) {
                     const dx = Math.floor(intensity * (Math.random() - 0.5) * fuzzRange);
                     ctx.drawImage(offscreen, 0, j, offscreenWidth, 1, dx, j, offscreenWidth, 1);
                 }
@@ -188,11 +220,7 @@ const FuzzyText: React.FC<FuzzyTextProps> = ({
 
     return (
         <div className={wrapperClasses} style={style}>
-            <canvas
-                ref={canvasRef}
-                className={canvasClasses}
-                style={{ width: '100%', maxWidth: 'min(90vw, 1000px)', height: 'auto' }}
-            />
+            <canvas ref={canvasRef} className={canvasClasses} />
         </div>
     );
 };
