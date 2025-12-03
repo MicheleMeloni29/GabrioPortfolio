@@ -144,6 +144,35 @@ a {
   animation: gradient-shift 8s ease infinite;
 }
 
+.heartbeat-logo {
+  animation: heartbeat 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Pulsazione del logo sulla HeroSection, valori piu' alti = ritmo piu' lento */
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.35)) brightness(0.50);
+  }
+  25% {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 26px rgba(185, 139, 90, 0.6)) brightness(1);
+  }
+  50% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.35)) brightness(0.50);
+  }
+  75% {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 26px rgba(185, 139, 90, 0.6)) brightness(1);
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.35)) brightness(0.50);
+  }
+}
+
 @keyframes gradient-shift {
   0% {
     background-position: 0% 50%;

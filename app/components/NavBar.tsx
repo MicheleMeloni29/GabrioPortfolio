@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
@@ -16,23 +17,6 @@ const primarySections = sections.filter((section) => section.id !== "contacts");
 const contactSection = sections.find((section) => section.id === "contacts");
 
 type SectionId = (typeof sections)[number]["id"];
-
-function Monogram() {
-    return (
-        <svg
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-            className="text-rame-sabbia"
-        >
-            <path
-                d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-                fill="currentColor"
-            />
-        </svg>
-    );
-}
 
 export default function NavBar() {
     const [activeSection, setActiveSection] = useState<SectionId>("hero");
@@ -82,11 +66,15 @@ export default function NavBar() {
             >
                 <NavbarContent className="w-full md:hidden" justify="start">
                     <div className="flex w-full items-center justify-between">
-                        <NavbarBrand className="gap-2">
-                            <Monogram />
-                            <p className="font-semibold uppercase tracking-[0.5em] text-rame-sabbia">
-                                Gabrio
-                            </p>
+                        <NavbarBrand className="h-8 shrink-0">
+                            <Image
+                                src="/Core_logo.png"
+                                alt="Core logo"
+                                width={240}
+                                height={65}
+                                priority
+                                className="h-full w-auto"
+                            />
                         </NavbarBrand>
                         <button
                             type="button"
@@ -116,54 +104,50 @@ export default function NavBar() {
                     </div>
                 </NavbarContent>
 
-                <div className="hidden md:flex items-center justify-between gap-6">
-                    <NavbarContent justify="start" className="flex-1">
-                        <NavbarBrand className="gap-3">
-                            <Monogram />
-                            <div className="text-left text-rame-sabbia">
-                                <p className="text-xs uppercase tracking-[0.4em]">Gabrio</p>
-                                <p className="text-[10px] uppercase tracking-[0.8em] text-bianco/60">
-                                    Portfolio
-                                </p>
-                            </div>
-                        </NavbarBrand>
-                    </NavbarContent>
-                    <NavbarContent justify="center" className="flex-1 gap-4">
+                <div className="hidden md:flex items-center justify-center gap-6">
+                    <NavbarBrand className="h-10 shrink-0">
+                        <Image
+                            src="/Core_logo.png"
+                            alt="Core logo"
+                            width={320}
+                            height={95}
+                            priority
+                            className="h-full w-auto"
+                        />
+                    </NavbarBrand>
+                    <div className="flex flex-1 items-center justify-center gap-4">
                         {primarySections.map(({ id, label }) => {
                             const isActive = activeSection === id;
                             return (
-                                <NavbarItem key={id}>
-                                    <Link
-                                        href={`#${id}`}
-                                        onClick={(event) => {
-                                            event.preventDefault();
-                                            handleNavigate(id);
-                                        }}
-                                        className={`${linkBase} ${isActive
-                                                ? "bg-rame-sabbia text-nero"
-                                                : "text-rame-sabbia hover:bg-bianco/10 hover:text-bianco"
-                                            }`}
-                                    >
-                                        {label}
-                                    </Link>
-                                </NavbarItem>
+                                <Link
+                                    key={id}
+                                    href={`#${id}`}
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        handleNavigate(id);
+                                    }}
+                                    className={`${linkBase} ${isActive
+                                            ? "bg-rame-sabbia text-nero"
+                                            : "text-rame-sabbia hover:bg-bianco/10 hover:text-bianco"
+                                        }`}
+                                >
+                                    {label}
+                                </Link>
                             );
                         })}
-                    </NavbarContent>
-                    <NavbarContent justify="end" className="flex-1">
-                        {contactSection ? (
-                            <Link
-                                href={`#${contactSection.id}`}
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                    handleNavigate(contactSection.id as SectionId);
-                                }}
-                                className="ml-auto rounded-full border border-rame-sabbia px-3 py-1 text-sm font-semibold uppercase tracking-[0.4em] text-rame-sabbia transition hover:bg-rame-sabbia hover:text-nero"
-                            >
-                                Start Now
-                            </Link>
-                        ) : null}
-                    </NavbarContent>
+                    </div>
+                    {contactSection ? (
+                        <Link
+                            href={`#${contactSection.id}`}
+                            onClick={(event) => {
+                                event.preventDefault();
+                                handleNavigate(contactSection.id as SectionId);
+                            }}
+                            className="rounded-full border border-rame-sabbia px-3 py-1 text-sm font-semibold uppercase tracking-[0.4em] text-rame-sabbia transition hover:bg-rame-sabbia hover:text-nero"
+                        >
+                            Start Now
+                        </Link>
+                    ) : null}
                 </div>
 
                 {isMenuOpen ? (

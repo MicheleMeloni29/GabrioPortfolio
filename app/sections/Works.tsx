@@ -23,10 +23,6 @@ export default function ProjectsSection() {
                                 className="relative aspect-4/3 w-full overflow-hidden rounded-2xl sm:aspect-video"
                                 style={{ background: project.coverGradient }}
                             >
-                                <div className="absolute inset-0 flex items-end justify-between p-4 text-xs uppercase tracking-[0.3em] text-white/80">
-                                    <span>{project.category}</span>
-                                    <span>{project.year}</span>
-                                </div>
                             </div>
 
                             <div className="mt-3 grid grid-cols-3 gap-1.5 sm:grid-cols-4">
