@@ -24,7 +24,6 @@ export default function Hero() {
     const [showFirstSplit, setShowFirstSplit] = useState(false);
     const [showSecondLine, setShowSecondLine] = useState(false);
     const [showSubtitle, setShowSubtitle] = useState(false);
-    const [showLogo, setShowLogo] = useState(false);
     const sectionRef = useRef<HTMLElement | null>(null);
     const timersRef = useRef<number[]>([]);
     const wasVisibleRef = useRef(false);
@@ -38,7 +37,6 @@ export default function Hero() {
         setShowFirstSplit(false);
         setShowSecondLine(false);
         setShowSubtitle(false);
-        setShowLogo(false);
     }, []);
 
     const startSequence = useCallback(() => {
@@ -66,12 +64,6 @@ export default function Hero() {
             window.setTimeout(() => {
                 setShowSubtitle(true);
             }, initialDelay + firstSplitTime + secondSplitTime)
-        );
-
-        timers.push(
-            window.setTimeout(() => {
-                setShowLogo(true);
-            }, initialDelay + firstSplitTime + secondSplitTime + SUBTITLE_DURATION)
         );
 
         timersRef.current = timers;
@@ -169,7 +161,7 @@ export default function Hero() {
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeIn" }}
-                        className="text-[clamp(0.75rem,3.8vw,1rem)] font-semibold uppercase tracking-[0.32em] text-bianco sm:text-[clamp(0.85rem,3.2vw,1.15rem)] md:text-[clamp(1.05rem,2.6vw,1.4rem)] lg:text-[clamp(1.35rem,2vw,1.9rem)]"
+                        className="text-[clamp(0.75rem,3.8vw,1rem)] font-semibold uppercase tracking-[0.32em] text-bianco sm:text-[clamp(0.75rem,2.2vw,1.15rem)] md:text-[clamp(1.05rem,2.6vw,1.4rem)] lg:text-[clamp(1.35rem,2vw,1.9rem)]"
                     >
                         L&apos;ESSENZA DIVENTA IDENTITA&apos;
                     </motion.p>
