@@ -1,9 +1,10 @@
 import FullPageScroller from "./components/FullPageScroller";
 import NavBar from "./components/NavBar";
-import AboutSection from "./sections/About";
 import ContactSection from "./sections/Contact";
-import Hero from "./sections/Hero";
+import Hero from "./sections/Hero.tsx";
 import ProjectsSection from "./sections/Works";
+import StudioSection from "./sections/Studio";
+import ServiziSection from "./sections/Servizi";
 
 export default function Home() {
   return (
@@ -11,7 +12,8 @@ export default function Home() {
       <NavBar />
       <FullPageScroller>
         <Hero />
-        <AboutSection />
+        <StudioSection />
+        <ServiziSection />
         <ProjectsSection />
         <ContactSection />
       </FullPageScroller>

@@ -2,7 +2,7 @@
 
 import BlurText from "../components/BlurText";
 
-export default function AboutSection() {
+export default function StudioSection() {
     const velocity = -18.0;
     const handleAnimationComplete = () => {
         // Hook for future interactions once the blur animation ends.
