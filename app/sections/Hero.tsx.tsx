@@ -110,7 +110,10 @@ export default function Hero() {
         >
             {/* 1) Immagine centrale invariata */}
             {/* Qui per modificare posizionamento dell'icona grande attraverso i vari formati */}
-            <div className="pointer-events-none select-none absolute inset-x-0 top-24 flex justify-center z-0 sm:top-[clamp(2.5rem,8vw,4.5rem)] md:top-[clamp(4.5rem,14vw,8rem)] lg:top-[clamp(4rem,13vw,6.5rem)] xl:top-[clamp(5.5rem,14vw,7.5rem)] 2xl:top-[clamp(8rem,20vw,11rem)]">
+            <div className="pointer-events-none select-none absolute inset-x-0 top-24 flex justify-center z-0 
+            sm:top-[clamp(2.5rem,2vw,4.5rem)]
+            md:top-[clamp(6.7rem,2vw,8.7rem)]
+            2xl:top-[clamp(7.5rem,3vw,8.51rem)]">
                 <Image
                     src="/Core_Icon.png"
                     alt="Core icon beating"
@@ -119,11 +122,9 @@ export default function Hero() {
                     priority
                     /* Modifica delle dimensioni dell'icona grande attraverso i vari formati*/
                     className="heartbeat-logo size-[16rem] 
-                                sm:size-[clamp(10rem,30vw,17rem)]     
-                                md:size-[clamp(14rem,32vw,21rem)]
-                                lg:size-[clamp(10rem,24vw,15rem)]
-                                xl:size-[clamp(14rem,28vw,18rem)]
-                                2xl:size-[clamp(28rem,56vw,34rem)]"
+                                sm:size-[clamp(10rem,7vw,17rem)]     
+                                md:size-[clamp(14rem,7vw,21rem)]
+                                2xl:size-[clamp(18rem,2vw,20rem)]"
                 />
             </div>
 
@@ -135,21 +136,17 @@ export default function Hero() {
                             top-[clamp(7rem,32vw,14rem)]
                             sm:top-[clamp(2rem,10vw,4rem)]
                             md:top-[clamp(4rem,20vw,8rem)]
-                            lg:top-[clamp(22rem,40vh,44rem)]
-                            xl:top-[clamp(26rem,40vh,52rem)]
-                            2xl:top-[clamp(50rem,50vh,80rem)]">
+                            2xl:top-[clamp(26rem,2vh,28rem)]">
                 {showFirstSplit ? (
-                    <div className="flex flex-col min-h-[9rem] sm:min-h-[10.5rem] md:min-h-[12rem]">
+                    <div className="flex flex-col gap-0 sm:gap-0 md:gap-0 min-h-[9rem] sm:min-h-[10.5rem] md:min-h-[12rem]">
                         <SplitText
                             text={FIRST_TEXT}
                             /* Modifica dimensione testo primo SplitText attraverso i vari formati*/
-                            className="font-black uppercase tracking-[0.2em] text-rame-sabbia
+                            className="font-black uppercase tracking-[0.2em] text-rame-sabbia m-0 leading-tight
                                         text-[clamp(1.6rem,9vw,2.3rem)]
                                         sm:text-[clamp(4.4rem,6vw,3.4rem)] 
                                         md:text-[clamp(2.3rem,4vw,3.6rem)] 
-                                        lg:text-[clamp(2.7rem,3vw,2.7rem)]
-                                        xl:text-[clamp(3.5rem,3.5vw,6rem)] 
-                                        2xl:text-[clamp(4.5rem,3.5vw,6rem)]"
+                                        2xl:text-[clamp(3.5rem,1vw,4.5rem)]"
                             textAlign="center"
                             splitType="chars"
                             delay={CHAR_DELAY}
@@ -164,14 +161,12 @@ export default function Hero() {
                             <SplitText
                                 text={SECOND_TEXT}
                                 /* Modifica dimensione testo secondo SplitText attraverso i vari formati*/
-                                className=" 
+                                className="m-0 leading-tight
                                             font-black uppercase tracking-[0.2em] text-rame-sabbia
                                             text-[clamp(1.6rem,9vw,2.3rem)]
                                             sm:text-[clamp(4.4rem,6vw,3.4rem)] 
                                             md:text-[clamp(2.3rem,4vw,3.6rem)] 
-                                            lg:text-[clamp(2.7rem,3vw,2.7rem)]
-                                            xl:text-[clamp(3.5rem,3.5vw,6rem)] 
-                                            2xl:text-[clamp(4.5rem,3.5vw,6rem)]"
+                                            2xl:text-[clamp(3.5rem,1vw,4.5rem)]"
                                 textAlign="center"
                                 splitType="chars"
                                 delay={CHAR_DELAY}
@@ -187,29 +182,28 @@ export default function Hero() {
 
             {/* 4) Subtitle con ease-in, solo dopo i due SplitText */}
             {/* Qui per modificare posizionamento del subtitle attraverso i vari formati */}
-            <div className="
+            <div
+                className="
                             z-10 flex justify-center text-center
                             px-4 lg:px-4
-                            relative lg:absolute lg:inset-x-0
-                            top-[clamp(22rem,60vw,36rem)]
-                            sm:top-[clamp(20rem,52vw,32rem)]
-                            md:top-[clamp(18rem,46vw,30rem)]
-                            lg:top-[clamp(18rem,40vh,26rem)]
-                            xl:top-[clamp(39rem,36vh,49rem)]
-                            2xl:top-[clamp(72rem,40vh,82rem)]
-                        ">
+                            absolute inset-x-0
+                            top-[clamp(30rem,44vw,32rem)]
+                            sm:top-[clamp(40rem,28vw,42rem)]
+                            md:top-[clamp(30rem,32vw,34rem)]
+                            2xl:top-[clamp(36rem,36vw,42rem)]
+                        "
+            >
                 {showSubtitle ? (
                     <motion.p
                         initial={{ opacity: 0, y: 16 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeIn" }}
+                        /* Modifica la dimensione del testo nei vari formati */
                         className="font-semibold uppercase tracking-[0.32em] text-bianco 
-                        text-[clamp(0.75rem,3.8vw,1rem)]
-                        sm:text-[clamp(0.75rem,2.2vw,1.15rem)] 
+                        text-[clamp(1rem,1vw,1.25rem)]
+                        sm:text-[clamp(1.1rem,1vw,1.1rem)] 
                         md:text-[clamp(1.05rem,2.6vw,1.4rem)] 
-                        lg:text-[clamp(1.35rem,2vw,1.9rem)]
-                        xl:text-[clamp(1.3rem,2.2vw,1.5rem)]
-                        2xl:text-[clamp(2rem,2.5vw,2.5rem)]"
+                        2xl:text-[clamp(1.5rem,1vw,2.5rem)]"
                     >
                         L&apos;ESSENZA DIVENTA IDENTITA&apos;
                     </motion.p>
