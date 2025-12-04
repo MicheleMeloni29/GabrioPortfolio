@@ -2,13 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 
 // Elenco delle sezioni della pagina da usare per i link del menu di navigazione.
 const sections = [
     { id: "hero", label: "Hero" },
-    { id: "about", label: "About" },
+    { id: "studio", label: "Studio" },
+    { id: "services", label: "Services" },
     { id: "projects", label: "Projects" },
     { id: "contacts", label: "Contacts" },
 ] as const;
@@ -21,6 +22,9 @@ type SectionId = (typeof sections)[number]["id"];
 export default function NavBar() {
     const [activeSection, setActiveSection] = useState<SectionId>("hero");
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showMobileLayout, setShowMobileLayout] = useState(true);
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
+    const desktopRowRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         // Osserva l'intersezione delle sezioni per evidenziare il link attivo durante lo scroll.
@@ -32,7 +36,7 @@ export default function NavBar() {
                     }
                 });
             },
-            { threshold: 0.35 }
+            { threshold: 0.2, rootMargin: "-30% 0px -30% 0px" }
         );
 
         sections.forEach(({ id }) => {
@@ -45,26 +49,81 @@ export default function NavBar() {
 
     const handleNavigate = (id: SectionId) => {
         // Scroll morbido verso la sezione selezionata e chiusura del menu mobile.
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+        document
+            .getElementById(id)
+            ?.scrollIntoView({ behavior: "smooth", block: "start" });
         setIsMenuOpen(false);
+        setActiveSection(id);
     };
 
-    const linkBase =
-        "rounded-full px-4 py-2 text-sm font-semibold transition duration-300";
+    const evaluateLayout = useCallback(() => {
+        const wrapper = wrapperRef.current;
+        const desktopRow = desktopRowRef.current;
+        const viewportWidth =
+            typeof window !== "undefined" ? window.innerWidth : 0;
+        const belowBreakpoint = viewportWidth <= 768;
+        let overflow = false;
+        if (wrapper) {
+            overflow = wrapper.scrollWidth - wrapper.clientWidth > 2;
+        }
+        if (!overflow && desktopRow && desktopRow.isConnected) {
+            overflow =
+                desktopRow.scrollWidth - desktopRow.clientWidth > 2 ||
+                desktopRow.getBoundingClientRect().right >
+                    (wrapper?.getBoundingClientRect().right ?? Infinity);
+        }
+        setShowMobileLayout(belowBreakpoint || overflow);
+    }, []);
 
+    useEffect(() => {
+        evaluateLayout();
+        const handleResize = () => evaluateLayout();
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [evaluateLayout]);
+
+    useEffect(() => {
+        const wrapper = wrapperRef.current;
+        if (!wrapper || typeof ResizeObserver === "undefined") {
+            return;
+        }
+        const observer = new ResizeObserver(() => evaluateLayout());
+        observer.observe(wrapper);
+        return () => observer.disconnect();
+    }, [evaluateLayout]);
+
+    useEffect(() => {
+        if (!showMobileLayout && isMenuOpen) {
+            setIsMenuOpen(false);
+        }
+    }, [showMobileLayout, isMenuOpen]);
+
+    const linkBase =
+        "rounded-full px-3 py-2 text-sm font-semibold transition duration-300 md:px-4";
+
+    // Render del componente NavBar per desktop e mobile.
     return (
         <Navbar
             isBordered
             className="fixed top-4 left-0 z-50 w-full border-none bg-transparent px-0 shadow-none backdrop-blur-none"
         >
             <div
-                className="relative mx-auto w-[92%] max-w-5xl rounded-full border px-5 py-3 text-bianco shadow-[0_18px_35px_rgba(3,4,12,0.65)] backdrop-blur"
+                ref={wrapperRef}
+                className="relative mx-auto w-[90%] rounded-full border px-5 py-3 text-bianco shadow-[0_18px_35px_rgba(3,4,12,0.65)] backdrop-blur"
                 style={{
                     borderColor: "rgba(13, 13, 13, 0.7)",
                     backgroundColor: "rgba(33, 36, 37, 0.92)",
                 }}
-            >
-                <NavbarContent className="w-full md:hidden" justify="start">
+            >    
+                
+                <NavbarContent
+                className={`w-full ${
+                    showMobileLayout
+                        ? "relative flex"
+                        : "absolute left-0 top-0 opacity-0 pointer-events-none"
+                }`}
+                    justify="start"
+                >
                     <div className="flex w-full items-center justify-between">
                         <NavbarBrand className="h-8 shrink-0">
                             <Image
@@ -104,8 +163,15 @@ export default function NavBar() {
                     </div>
                 </NavbarContent>
 
-                <div className="hidden md:flex items-center justify-center gap-6">
-                    <NavbarBrand className="h-10 shrink-0">
+                <div
+                    ref={desktopRowRef}
+                className={`flex w-full items-center gap-4 ${
+                    showMobileLayout
+                        ? "absolute left-0 top-0 opacity-0 pointer-events-none"
+                        : "relative"
+                }`}
+                >
+                    <NavbarBrand className="h-10 flex-shrink-0">
                         <Image
                             src="/Core_logo.png"
                             alt="Core logo"
@@ -115,7 +181,7 @@ export default function NavBar() {
                             className="h-full w-auto"
                         />
                     </NavbarBrand>
-                    <div className="flex flex-1 items-center justify-center gap-4">
+                    <div className="flex flex-1 items-center justify-center gap-3 px-2">
                         {primarySections.map(({ id, label }) => {
                             const isActive = activeSection === id;
                             return (
@@ -143,14 +209,14 @@ export default function NavBar() {
                                 event.preventDefault();
                                 handleNavigate(contactSection.id as SectionId);
                             }}
-                            className="rounded-full border border-rame-sabbia px-3 py-1 text-sm font-semibold uppercase tracking-[0.4em] text-rame-sabbia transition hover:bg-rame-sabbia hover:text-nero"
+                            className="flex-shrink-0 rounded-full border border-rame-sabbia px-3 py-1 text-sm font-semibold uppercase tracking-[0.4em] text-rame-sabbia transition hover:bg-rame-sabbia hover:text-nero whitespace-nowrap"
                         >
                             Start Now
                         </Link>
                     ) : null}
                 </div>
 
-                {isMenuOpen ? (
+                {showMobileLayout && isMenuOpen ? (
                     <div className="absolute right-4 top-full mt-4 w-48 rounded-3xl bg-[rgba(13,13,13,0.85)] p-4 shadow-2xl md:hidden">
                         <div className="flex flex-col gap-3 text-sm font-semibold">
                             {[...primarySections, contactSection]
