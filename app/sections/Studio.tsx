@@ -14,7 +14,7 @@ export default function StudioSection() {
     return (
         <section
             id="about"
-            className="snap-start flex min-h-screen w-full shrink-0 items-center justify-center bg-rame-sabbia px-6 py-16 text-nero sm:px-12 lg:px-24"
+            className="snap-start flex min-h-screen w-full shrink-0 items-center justify-center bg-sfondo2 px-6 py-16 text-nero sm:px-12 lg:px-24"
         >
             <div className="w-full max-w-6xl text-center">
                 <BlurText
