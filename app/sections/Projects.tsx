@@ -4,9 +4,9 @@ export default function ProjectsSection() {
     return (
         <section
             id="projects"
-            className="snap-start min-h-screen w-full shrink-0 bg-nero px-6 pt-12 pb-12 text-bianco sm:min-h-[95vh] sm:px-10 sm:pt-20 lg:min-h-[90vh] lg:px-16 lg:pt-28"
+            className="snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20"
         >
-            <div className="mx-auto flex max-w-6xl flex-col gap-10">
+            <div className="mx-auto flex max-w-6xl flex-1 flex-col gap-10">
                 <div
                     data-allow-scroll="true"
                     className="no-scrollbar mt-12 flex w-full snap-x snap-mandatory gap-6 overflow-x-auto pb-6 sm:mt-16 lg:mt-8 cursor-grab"

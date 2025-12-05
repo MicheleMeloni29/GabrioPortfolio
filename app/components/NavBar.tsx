@@ -3,15 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
+import { Navbar, NavbarBrand, NavbarContent } from "@heroui/navbar";
 
 // Elenco delle sezioni della pagina da usare per i link del menu di navigazione.
 const sections = [
     { id: "hero", label: "Hero" },
-    { id: "studio", label: "Studio" },
-    { id: "services", label: "Services" },
-    { id: "projects", label: "Projects" },
-    { id: "contacts", label: "Contacts" },
+    { id: "about", label: "About" },
+    { id: "services", label: "Servizi" },
+    { id: "process", label: "Processo" },
+    { id: "projects", label: "Progetti" },
+    { id: "why-core", label: "Why Core" },
+    { id: "contacts", label: "Contatti" },
 ] as const;
 
 const primarySections = sections.filter((section) => section.id !== "contacts");
@@ -209,7 +211,8 @@ export default function NavBar() {
                                 event.preventDefault();
                                 handleNavigate(contactSection.id as SectionId);
                             }}
-                            className="flex-shrink-0 rounded-full border border-rame-sabbia px-3 py-1 text-sm font-semibold uppercase tracking-[0.4em] text-rame-sabbia transition hover:bg-rame-sabbia hover:text-nero whitespace-nowrap"
+                            className="flex-shrink-0 rounded-full border-4 border-rame-sabbia px-5 py-2 text-base font-semibold uppercase tracking-[0.35em] text-rame-sabbia transition hover:bg-rame-sabbia hover:text-nero whitespace-nowrap"
+                            style={{ letterSpacing: "0.35em" }}
                         >
                             Start Now
                         </Link>

@@ -6,14 +6,20 @@
 :root {
   /* Palette principale */
   --color-nero: #0d0d0d;
+  --color-carbone: #171b1c;
   --color-bianco: #ffffff;
-  --color-rame-sabbia: #b98b5a;
+  --color-rame-sabbia: #c6a37a;
+
+  /* Da verificare se usare */
   --color-antracite: #212425;
-  --color-sfondo2: #171b1c;
+
 
   /* Tipografia */
+  /* Titoli*/
   --font-heading: var(--font-montserrat-bold);
+  /* Ttesti */
   --font-body: var(--font-montserrat-regular);
+
 
   --radius: 0.625rem;
   --background: var(--color-nero);
@@ -55,6 +61,7 @@
   --color-nero: var(--color-nero);
   --color-bianco: var(--color-bianco);
   --color-rame-sabbia: var(--color-rame-sabbia);
+  --color-carbone: var(--color-carbone);
   --color-antracite: var(--color-antracite);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -150,37 +157,99 @@ a {
   transform-origin: center;
 }
 
+.heartbeat-logo--why {
+  animation: heartbeat-why 2.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
 /* Pulsazione del logo sulla HeroSection, valori piu' alti = ritmo piu' lento */
 @keyframes heartbeat {
   0% {
     transform: scale(1);
     filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.35)) brightness(0.50);
   }
+
   25% {
     transform: scale(1.3);
     filter: drop-shadow(0 0 26px rgba(185, 139, 90, 0.6)) brightness(1);
   }
+
   50% {
     transform: scale(1);
     filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.35)) brightness(0.50);
   }
+
   75% {
     transform: scale(1.3);
     filter: drop-shadow(0 0 26px rgba(185, 139, 90, 0.6)) brightness(1);
   }
+
   100% {
     transform: scale(1);
     filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.35)) brightness(0.50);
   }
 }
 
+@keyframes heartbeat-why {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 16px rgba(185, 139, 90, 0.18)) brightness(0.5);
+  }
+  30% {
+    transform: scale(1.32);
+    filter: drop-shadow(0 0 24px rgba(185, 139, 90, 0.4)) brightness(0.9);
+  }
+  60% {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.22)) brightness(0.65);
+  }
+  100% {
+    transform: scale(1.3);
+    filter: drop-shadow(0 0 24px rgba(185, 139, 90, 0.4)) brightness(0.9);
+  }
+}
+
+.heartbeat-logo--why {
+  animation: heartbeat 2s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+@keyframes heartbeat-why {
+  0% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.65)) brightness(0.50);
+    }
+  
+    25% {
+      transform: scale(1.3);
+      filter: drop-shadow(0 0 26px rgba(185, 139, 90, 0.9)) brightness(1);
+    }
+  
+    50% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.65)) brightness(0.50);
+    }
+  
+    75% {
+      transform: scale(1.3);
+      filter: drop-shadow(0 0 26px rgba(185, 139, 90, 0.9)) brightness(1);
+    }
+  
+    100% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 18px rgba(185, 139, 90, 0.65)) brightness(0.50);
+    }
+}
+
 @keyframes gradient-shift {
   0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
   100% {
     background-position: 0% 50%;
   }
@@ -224,6 +293,7 @@ a {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

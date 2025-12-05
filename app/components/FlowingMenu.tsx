@@ -7,6 +7,7 @@ interface MenuItemProps {
     link: string;
     text: string;
     image: string;
+    details?: string[];
 }
 
 interface FlowingMenuProps {
@@ -25,7 +26,7 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
     );
 };
 
-const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, details }) => {
     const itemRef = React.useRef<HTMLDivElement>(null);
     const marqueeRef = React.useRef<HTMLDivElement>(null);
     const marqueeInnerRef = React.useRef<HTMLDivElement>(null);
@@ -79,38 +80,35 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
         );
     };
 
-    const repeatedMarqueeContent = React.useMemo(() => {
-        return Array.from({ length: 4 }).map((_, idx) => (
-            <React.Fragment key={idx}>
-                <span className="text-nero uppercase font-normal text-[4vh] leading-[1.2] p-[1vh_1vw_0]">
-                    {text}
-                </span>
-                <div
-                    className="w-[200px] h-[7vh] my-[2em] mx-[2vw] p-[1em_0] rounded-[50px] bg-cover bg-center"
-                    style={{ backgroundImage: `url(${image})` }}
-                />
-            </React.Fragment>
+    const detailTexts = React.useMemo(() => {
+        if (details && details.length > 0) {
+            return details;
+        }
+        return [text];
+    }, [details, text]);
+
+    const detailContent = React.useMemo(() => {
+        return detailTexts.map((detail, idx) => (
+            <p
+                key={`${detail}-${idx}`}
+                className="text-center text-rame-sabbia text-[1.8vh] sm:text-[2vh] lg:text-[2.8vh] font-semibold leading-relaxed"
+            >
+                {detail}
+            </p>
         ));
-    }, [text, image]);
+    }, [detailTexts]);
 
     return (
         <div
             ref={itemRef}
-            className="
-    flex-1 min-w-0 
-    relative overflow-hidden text-center
-    shadow-[-1px_0_0_0_rgba(255,255,255,0.15)]
-    h-[40vh]        
-    sm:h-[45vh]     
-    md:h-[50vh]
-  "
+            className="group flex-1 min-w-0 relative overflow-hidden text-center bg-rame-sabbia text-carbone transition-colors duration-500 shadow-[-1px_0_0_0_rgba(23,27,28,0.45)] h-[40vh] sm:h-[45vh] md:h-[50vh] group-hover:bg-carbone group-focus-within:bg-carbone"
         >
             <div
-                className="absolute inset-0 bg-cover bg-center opacity-20 pointer-events-none"
+                className="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none transition-opacity duration-500"
                 style={{ backgroundImage: `url(${image})` }}
             />
             <a
-                className="relative flex items-center justify-center h-full cursor-pointer uppercase no-underline font-semibold text-rame-sabbia text-[4vh] hover:text-nero focus:text-rame-sabbia focus-visible:text-rame-sabbia"
+                className="relative flex h-full w-full items-center justify-center px-6 cursor-pointer uppercase no-underline font-bold text-carbone text-[3vh] sm:text-[3.5vh] transition-colors duration-500 group-hover:text-rame-sabbia group-focus-within:text-rame-sabbia focus:text-rame-sabbia focus-visible:text-rame-sabbia"
                 href={link}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
@@ -118,12 +116,15 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
                 {text}
             </a>
             <div
-                className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none bg-rame-sabbia translate-y-[101%]"
+                className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none bg-carbone translate-y-[101%]"
                 ref={marqueeRef}
             >
-                <div className="h-full w-[200%] flex" ref={marqueeInnerRef}>
-                    <div className="flex items-center relative h-full w-[200%] will-change-transform animate-marquee">
-                        {repeatedMarqueeContent}
+                <div
+                    className="flex h-full w-full items-center justify-center px-6"
+                    ref={marqueeInnerRef}
+                >
+                    <div className="flex h-full w-full flex-col justify-center gap-4">
+                        {detailContent}
                     </div>
                 </div>
             </div>

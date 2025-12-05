@@ -133,10 +133,10 @@ export default function Hero() {
             <div className="z-10 flex flex-col items-center text-center
                             px-2 sm:px-2 lg:px-4
                             relative lg:absolute lg:inset-x-0
-                            top-[clamp(7rem,32vw,14rem)]
-                            sm:top-[clamp(2rem,10vw,4rem)]
-                            md:top-[clamp(4rem,20vw,8rem)]
-                            2xl:top-[clamp(26rem,2vh,28rem)]">
+                            top-[clamp(12rem,32vw,14rem)]
+                            sm:top-[clamp(17rem,32vw,19rem)]
+                            md:top-[clamp(21rem,32vw,23rem)]
+                            2xl:top-[clamp(26rem,32vh,28rem)]">
                 {showFirstSplit ? (
                     <div className="flex flex-col gap-0 sm:gap-0 md:gap-0 min-h-[9rem] sm:min-h-[10.5rem] md:min-h-[12rem]">
                         <SplitText
@@ -188,24 +188,20 @@ export default function Hero() {
                             px-4 lg:px-4
                             absolute inset-x-0
                             top-[clamp(30rem,44vw,32rem)]
-                            sm:top-[clamp(40rem,28vw,42rem)]
-                            md:top-[clamp(30rem,32vw,34rem)]
-                            2xl:top-[clamp(36rem,36vw,42rem)]
+                            sm:top-[clamp(32rem,44vw,34rem)]
+                            md:top-[clamp(34rem,44vw,46rem)]
+                            2xl:top-[clamp(36rem,44vw,38rem)]
                         "
             >
                 {showSubtitle ? (
                     <motion.p
-                        initial={{ opacity: 0, y: 16 }}
+                        initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeIn" }}
                         /* Modifica la dimensione del testo nei vari formati */
-                        className="font-semibold uppercase tracking-[0.32em] text-bianco 
-                        text-[clamp(1rem,1vw,1.25rem)]
-                        sm:text-[clamp(1.1rem,1vw,1.1rem)] 
-                        md:text-[clamp(1.05rem,2.6vw,1.4rem)] 
-                        2xl:text-[clamp(1.5rem,1vw,2.5rem)]"
+                        className="font-semibold uppercase tracking-[0.32em] text-bianco"
                     >
-                        L&apos;ESSENZA DIVENTA IDENTITA&apos;
+                        DOVE LA VISIONE PRENDE FORMA
                     </motion.p>
                 ) : null}
             </div>
