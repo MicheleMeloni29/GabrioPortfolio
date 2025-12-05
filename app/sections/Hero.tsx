@@ -9,7 +9,7 @@ import SplitText from "../components/SplitText";
 const FIRST_TEXT = "DAL CUORE";
 const SECOND_TEXT = "ALLA FORMA";
 
-const CHAR_DELAY = 120; // ms, come il delay di SplitText
+const CHAR_DELAY = 80; // ms, come il delay di SplitText
 const SPLIT_DURATION = 0.6 * 1000; // 0.6s -> ms (duration di SplitText)
 const SUBTITLE_DURATION = 600; // ms, come motion del subtitle
 
@@ -43,7 +43,7 @@ export default function Hero() {
         clearTimers();
         resetStates();
 
-        const initialDelay = 2000; // 2) dopo 2 secondi parte il primo SplitText
+        const initialDelay = 1500; // 2) dopo 2 secondi parte il primo SplitText
         const firstSplitTime = calcSplitDuration(FIRST_TEXT);
         const secondSplitTime = calcSplitDuration(SECOND_TEXT);
 

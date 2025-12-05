@@ -59,19 +59,26 @@ export default function WhyCoreSection() {
 
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 pt-24 text-center">
                     <div className="flex flex-col items-center gap-6 text-5xl sm:text-6xl font-bold">
-                        <GradientText
-                            colors={["#ffffff", "#c6a37a", "#ffffff", "#c6a37a", "#ffffff"]}
-                            animationSpeed={3}
-                            showBorder={false}
-                            className="uppercase"
+                        <motion.div
+                            key={`first-${replayKey}`}
+                            initial={{ opacity: 0, y: -30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
                         >
-                            Ogni brand ha un cuore
-                        </GradientText>
+                            <GradientText
+                                colors={["#ffffff", "#c6a37a", "#ffffff", "#c6a37a", "#ffffff"]}
+                                animationSpeed={3}
+                                showBorder={false}
+                                className="uppercase"
+                            >
+                                Ogni brand ha un cuore
+                            </GradientText>
+                        </motion.div>
                         <motion.div
                             key={replayKey}
                             initial={{ opacity: 0, y: -30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 1, ease: "easeIn" }}
+                            transition={{ duration: 1, delay: 1.5, ease: "easeIn" }}
                         >
                             <GradientText
                                 colors={["#c6a37a", "#ffffff", "#c6a37a", "#ffffff", "#c6a37a"]}

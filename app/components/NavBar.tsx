@@ -211,10 +211,22 @@ export default function NavBar() {
                                 event.preventDefault();
                                 handleNavigate(contactSection.id as SectionId);
                             }}
-                            className="flex-shrink-0 rounded-full border-4 border-rame-sabbia px-5 py-2 text-base font-semibold uppercase tracking-[0.35em] text-rame-sabbia transition hover:bg-rame-sabbia hover:text-nero whitespace-nowrap"
+                            className="group relative flex-shrink-0 rounded-full p-[2px] text-base font-semibold uppercase tracking-[0.35em] text-rame-sabbia focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rame-sabbia"
                             style={{ letterSpacing: "0.35em" }}
                         >
-                            Start Now
+                            <span
+                                className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-r from-white via-rame-sabbia to-white"
+                                aria-hidden
+                            />
+                            <span
+                                className={`relative block rounded-full px-5 py-2 transition-colors duration-300 ${
+                                    activeSection === "contacts"
+                                        ? "bg-rame-sabbia text-nero"
+                                        : "bg-carbone text-rame-sabbia group-hover:bg-rame-sabbia group-hover:text-nero group-focus:bg-rame-sabbia group-focus:text-nero group-active:bg-rame-sabbia group-active:text-nero"
+                                }`}
+                            >
+                                Start Now
+                            </span>
                         </Link>
                     ) : null}
                 </div>
