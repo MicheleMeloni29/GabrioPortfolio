@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const FIRST_TEXT = "CORE STUDIO nasce dall'idea che ogni brand abbia un cuore: un nucleo, un centro, un significato profondo. Il mio lavoro parte sempre da lì: dalla ricerca dell’essenza, di ciò che un brand è davvero e di ciò che vuole comunicare.";
+const FIRST_TEXT = "CORE STUDIO nasce dall'idea che ogni brand abbia un cuore: un nucleo, un centro, un significato profondo. Il mio lavoro parte sempre da lì: dalla ricerca dell’essenza, di ciò che un brand è davvero";
 const SECOND_TEXT = "Trasformo questa essenza in identità visive, strategie e una presenza riconoscibile. Do forma alle visioni dei miei clienti con coerenza e carattere, facendo emergere valori, stile e personalità attraverso il design.";
 const THIRD_TEXT = "Creo sistemi visivi chiari, memorabili e premium, pensati per brand locali e imprenditori che vogliono distinguersi nel mercato italiano e internazionale. Dalla Sardegna al mondo, seguo il design ovunque mi porti.";
 
