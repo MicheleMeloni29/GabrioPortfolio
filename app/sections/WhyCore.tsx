@@ -1,10 +1,8 @@
 'use client';
 
 import Image from "next/image";
-import { motion } from "motion/react";
+import CircularText from '../components/CircularText';
 import { useEffect, useRef, useState } from "react";
-
-import GradientText from "../components/GradientText";
 
 export default function WhyCoreSection() {
     const sectionRef = useRef<HTMLElement | null>(null);
@@ -39,7 +37,7 @@ export default function WhyCoreSection() {
         <section
             id="why-core"
             ref={sectionRef}
-            className="snap-start flex min-h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 text-rame-sabbia sm:px-12 lg:px-24"
+            className="snap-start flex min-h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 sm:px-12 lg:px-24"
         >
             <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
                 <div className="pointer-events-none absolute inset-x-0 top-12 z-10 mx-auto w-full max-w-4xl px-6 text-center pt-6">
@@ -57,38 +55,25 @@ export default function WhyCoreSection() {
                     />
                 </div>
 
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 pt-24 text-center">
-                    <div className="flex flex-col items-center gap-6 text-5xl sm:text-6xl font-bold">
-                        <motion.div
-                            key={`first-${replayKey}`}
-                            initial={{ opacity: 0, y: -30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
-                        >
-                            <GradientText
-                                colors={["#ffffff", "#c6a37a", "#ffffff", "#c6a37a", "#ffffff"]}
-                                animationSpeed={3}
-                                showBorder={false}
-                                className="uppercase"
-                            >
-                                Ogni brand ha un cuore
-                            </GradientText>
-                        </motion.div>
-                        <motion.div
-                            key={replayKey}
-                            initial={{ opacity: 0, y: -30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 1.5, ease: "easeIn" }}
-                        >
-                            <GradientText
-                                colors={["#c6a37a", "#ffffff", "#c6a37a", "#ffffff", "#c6a37a"]}
-                                animationSpeed={3}
-                                showBorder={false}
-                                className="uppercase"
-                            >
-                                Io gli do forma
-                            </GradientText>
-                        </motion.div>
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-6 pt-36 text-center">
+                    <div className="relative flex items-center justify-center">
+                        <CircularText
+                            text=" OGNI BRAND HA UN CUORE -"
+                            onHover="speedUp"
+                            spinDuration={50}
+                            size={280}
+                            className="text-rame-sabbia text-8xl sm:text-6xl lg:text-7xl font-bold"
+                        />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <CircularText
+                                text=" IO GLI DO FORMA -"
+                                onHover="speedUp"
+                                spinDuration={40}
+                                size={160}
+                                direction="counterclockwise"
+                                className="text-rame-sabbia text-5xl sm:text-4xl lg:text-5xl font-bold"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

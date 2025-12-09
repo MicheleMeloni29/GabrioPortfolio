@@ -46,12 +46,24 @@ export const projectsData: readonly ProjectPreview[] = [
             { id: "details", gradient: "linear-gradient(135deg,#D3BBDD,#A594F9)" },
             { id: "paper", gradient: "linear-gradient(135deg,#FDF2E9,#F9C784)" },
             { id: "backstage", gradient: "linear-gradient(135deg,#2E1F27,#6C4A4A)" },
-            { id: "print", gradient: "linear-gradient(135deg,#FFECD1,#FF928B)" },
         ],
     },
     {
         id: "ricevitoria-superenalotto",
         title: "Ricevitoria Superenalotto",
+        description:
+            "Comunicazione locale, display, materiali stampati.",
+        coverGradient: "linear-gradient(135deg,#0D0D0D,#4A1F3D)",
+        images: [
+            { id: "totem", gradient: "linear-gradient(135deg,#281C2D,#614051)" },
+            { id: "motion", gradient: "linear-gradient(135deg,#C33764,#1D2671)" },
+            { id: "map", gradient: "linear-gradient(135deg,#302B63,#0F0C29)" },
+            { id: "gift", gradient: "linear-gradient(135deg,#FF8C42,#FF3C38)" },
+        ],
+    },
+    {
+        id: "V-miglio-sestu",
+        title: "V Miglio Sestu",
         description:
             "Comunicazione locale, display, materiali stampati.",
         coverGradient: "linear-gradient(135deg,#0D0D0D,#4A1F3D)",

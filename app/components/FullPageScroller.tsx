@@ -116,15 +116,20 @@ export default function FullPageScroller({
 
         const onWheel = (event: WheelEvent) => {
             const target = event.target as HTMLElement | null;
+            const allowTarget = getAllowScrollTarget(target);
             const isHorizontalScroll = Math.abs(event.deltaX) > Math.abs(event.deltaY);
-            if (isHorizontalScroll) return;
+            if (isHorizontalScroll) {
+                if (!allowTarget) {
+                    event.preventDefault();
+                }
+                return;
+            }
 
             if (isAnimatingRef.current) {
                 event.preventDefault();
                 return;
             }
 
-            const allowTarget = getAllowScrollTarget(target);
             const lockContainer = getScrollLockContainer();
             const deltaY = event.deltaY;
             const direction =

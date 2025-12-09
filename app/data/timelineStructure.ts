@@ -31,5 +31,6 @@ export const timelineData: TimelineEntry[] = [
         title: "Applicazioni Reali",
         description: "Materiali concreti: social, stampa, mockup, presentazioni. File finali pronti per utilizzo professionale.",
     },
+   
     
 ];

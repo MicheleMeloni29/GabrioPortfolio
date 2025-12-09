@@ -17,7 +17,7 @@ export default function WorksProcess() {
                     data-allow-scroll="true"
                     className="no-scrollbar h-full w-full overflow-y-auto pr-4 sm:pr-6 min-h-0"
                 >
-                    <Timeline id="process-timeline" className="pb-12" />
+                    <Timeline id="process-timeline" className="pb-14" />
                 </div>
             </div>
         </section>
