@@ -91,9 +91,9 @@ export default function AboutSection() {
                 <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">Chi sono</h1>
             </div>
 
-            <div className="mx-auto mt-10 flex w-full max-w-7xl flex-1 flex-col justify-center gap-14 text-rame-sabbia">
+            <div className="mx-auto mt-10 flex w-full max-w-7xl flex-1 flex-col justify-center gap-14 md:gap-18 text-rame-sabbia text-[0.8rem] sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
                 <motion.p
-                    className="max-w-4xl text-left text-2xl font-semibold leading-snug"
+                    className="max-w-4xl text-left font-semibold leading-snug"
                     initial={{ x: "-45vw", opacity: 0 }}
                     animate={showFirstSplit ? { x: 0, opacity: 1 } : { x: "-45vw", opacity: 0 }}
                     transition={{ duration: 2, ease: "easeOut" }}
@@ -101,7 +101,7 @@ export default function AboutSection() {
                     {FIRST_TEXT}
                 </motion.p>
                 <motion.p
-                    className="ml-auto max-w-4xl text-right text-2xl font-semibold leading-snug"
+                    className="ml-auto max-w-4xl text-right font-semibold leading-snug"
                     initial={{ x: "45vw", opacity: 0 }}
                     animate={showSecondSplit ? { x: 0, opacity: 1 } : { x: "45vw", opacity: 0 }}
                     transition={{ duration: 2, ease: "easeOut" }}
@@ -109,7 +109,7 @@ export default function AboutSection() {
                     {SECOND_TEXT}
                 </motion.p>
                 <motion.p
-                    className="max-w-4xl text-left text-2xl font-semibold leading-snug"
+                    className="max-w-4xl text-left font-semibold leading-snug"
                     initial={{ x: "-45vw", opacity: 0 }}
                     animate={showThirdSplit ? { x: 0, opacity: 1 } : { x: "-45vw", opacity: 0 }}
                     transition={{ duration: 2, ease: "easeOut" }}

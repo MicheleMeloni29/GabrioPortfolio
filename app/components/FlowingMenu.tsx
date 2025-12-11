@@ -16,8 +16,12 @@ interface FlowingMenuProps {
 
 const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
     return (
-        <div className="w-full h-full overflow-hidden">
-            <nav className="flex flex-row h-full m-0 p-0">
+        <div className="relative w-full h-full overflow-hidden -mt-16 sm:-mt-12 md:mt-0">
+            {/* 
+              - In verticale / mobile → flex-col
+              - Da md in su (tipicamente landscape / desktop) → flex-row
+            */}
+            <nav className="flex h-full flex-col items-stretch justify-start gap-5 m-0 p-0 md:flex-row md:items-center md:justify-center md:gap-0">
                 {items.map((item, idx) => (
                     <MenuItem key={idx} {...item} />
                 ))}
@@ -71,7 +75,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, details }) => {
             rect.height
         );
 
-        const tl = gsap.timeline({ defaults: animationDefaults }) as TimelineMax;
+        const tl = gsap.timeline({ defaults: animationDefaults });
         tl.to(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }).to(
             marqueeInnerRef.current,
             {
@@ -91,7 +95,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, details }) => {
         return detailTexts.map((detail, idx) => (
             <p
                 key={`${detail}-${idx}`}
-                className="text-center text-rame-sabbia text-[1.8vh] sm:text-[2vh] lg:text-[2.8vh] font-semibold leading-relaxed"
+                className="text-center text-rame-sabbia text-[1.8vh] sm:text-[2vh] lg:text-[2.8vh] font-semibold leading-loose py-2 sm:py-3"
             >
                 {detail}
             </p>
@@ -101,14 +105,14 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, details }) => {
     return (
         <div
             ref={itemRef}
-            className="group flex-1 min-w-0 relative overflow-hidden text-center bg-rame-sabbia text-carbone transition-colors duration-500 shadow-[-1px_0_0_0_rgba(23,27,28,0.45)] h-[40vh] sm:h-[45vh] md:h-[50vh] group-hover:bg-carbone group-focus-within:bg-carbone"
+            className="group flex-1 min-w-0 relative overflow-hidden text-center bg-rame-sabbia text-carbone transition-colors duration-500 shadow-[-1px_0_0_0_rgba(23,27,28,0.45)] h-[32vh] sm:h-[38vh] md:h-[45vh] lg:h-[50vh] group-hover:bg-carbone group-focus-within:bg-carbone"
         >
             <div
                 className="absolute inset-0 bg-cover bg-center opacity-15 pointer-events-none transition-opacity duration-500"
                 style={{ backgroundImage: `url(${image})` }}
             />
             <a
-                className="relative flex h-full w-full items-center justify-center px-6 cursor-pointer uppercase no-underline font-bold text-carbone text-[3vh] sm:text-[3.5vh] transition-colors duration-500 group-hover:text-rame-sabbia group-focus-within:text-rame-sabbia focus:text-rame-sabbia focus-visible:text-rame-sabbia"
+                className="relative flex h-full w-full items-center justify-center px-6 cursor-pointer uppercase no-underline font-bold text-carbone text-[2.6vh] sm:text-[3vh] md:text-[3.5vh] transition-colors duration-500 group-hover:text-rame-sabbia group-focus-within:text-rame-sabbia focus:text-rame-sabbia focus-visible:text-rame-sabbia"
                 href={link}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
