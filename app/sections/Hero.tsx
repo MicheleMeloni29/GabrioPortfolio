@@ -106,67 +106,31 @@ export default function Hero() {
         <section
             id="hero"
             ref={sectionRef}
-            className="relative snap-start flex h-screen w-full shrink-0 flex-col items-center justify-center overflow-hidden bg-nero px-4 pt-24 pb-6 text-white sm:px-6 lg:pt-32"
+            className="relative snap-start flex min-h-screen w-full shrink-0 flex-col overflow-hidden bg-nero px-4 py-20 text-white sm:px-6 lg:px-12 lg:py-20 md:py-8"
         >
-            {/* 1) Immagine centrale invariata */}
-            {/* Qui per modificare posizionamento dell'icona grande attraverso i vari formati */}
-            <div className="pointer-events-none select-none absolute inset-x-0 top-24 flex justify-center z-0 
-            sm:top-[clamp(2.5rem,2vw,4.5rem)]
-            md:top-[clamp(6.7rem,2vw,8.7rem)]
-            2xl:top-[clamp(7.5rem,3vw,8.51rem)]">
-                <Image
-                    src="/Core_Icon.png"
-                    alt="Core icon beating"
-                    width={541}
-                    height={541}
-                    priority
-                    /* Modifica delle dimensioni dell'icona grande attraverso i vari formati*/
-                    className="heartbeat-logo size-[16rem] 
-                                sm:size-[clamp(10rem,7vw,17rem)]     
-                                md:size-[clamp(14rem,7vw,21rem)]
-                                2xl:size-[clamp(18rem,2vw,20rem)]"
-                />
-            </div>
+            <div className="flex h-full w-full flex-col items-center justify-center gap-10 text-center sm:gap-12 md:gap-10">
+                <div className="pointer-events-none select-none">
+                    <Image
+                        src="/Core_Icon.png"
+                        alt="Core icon beating"
+                        width={541}
+                        height={541}
+                        priority
+                        className="heartbeat-logo mx-auto w-[clamp(14rem,60vw,20rem)] sm:w-[clamp(16rem,45vw,24rem)] md:w-[clamp(18rem,35vw,28rem)] lg:w-[clamp(18rem,24vw,26rem)]"
+                    />
+                </div>
 
-            {/* 2) Primo SplitText */}
-            {/* Qui per modificare posizionamento degli SplitText attraverso i vari formati */}
-            <div className="z-10 flex flex-col items-center text-center
-                            px-2 sm:px-2 lg:px-4
-                            relative lg:absolute lg:inset-x-0
-                            top-[clamp(12rem,32vw,14rem)]
-                            sm:top-[clamp(17rem,32vw,19rem)]
-                            md:top-[clamp(21rem,32vw,23rem)]
-                            2xl:top-[clamp(26rem,32vh,28rem)]">
-                {showFirstSplit ? (
-                    <div className="flex flex-col gap-0 sm:gap-0 md:gap-0 min-h-[9rem] sm:min-h-[10.5rem] md:min-h-[12rem]">
-                        <SplitText
-                            text={FIRST_TEXT}
-                            /* Modifica dimensione testo primo SplitText attraverso i vari formati*/
-                            className="font-black uppercase tracking-[0.2em] text-rame-sabbia m-0 leading-tight
-                                        text-[clamp(1.6rem,9vw,2.3rem)]
-                                        sm:text-[clamp(4.4rem,6vw,3.4rem)] 
-                                        md:text-[clamp(2.3rem,4vw,3.6rem)] 
-                                        2xl:text-[clamp(3.5rem,1vw,4.5rem)]"
-                            textAlign="center"
-                            splitType="chars"
-                            delay={CHAR_DELAY}
-                            duration={0.6}
-                            ease={[0.5, 1.5, 0.5, 1.5]}
-                            from={{ opacity: 0, y: 24 }}
-                            to={{ opacity: 1, y: 0 }}
-                        />
-
-                        {/* 3) Secondo SplitText, solo dopo il primo */}
-                        {showSecondLine ? (
+                <div className="flex w-full max-w-4xl flex-col items-center gap-2 px-2 sm:gap-3 md:gap-4 sm:px-4 lg:gap-0 lg:-mt-5">
+                    <div className="flex w-full justify-center text-center min-h-[2.75rem] sm:min-h-[3.25rem] md:min-h-[4rem] lg:min-h-[-1rem]">
+                        {showFirstSplit ? (
                             <SplitText
-                                text={SECOND_TEXT}
-                                /* Modifica dimensione testo secondo SplitText attraverso i vari formati*/
-                                className="m-0 leading-tight
-                                            font-black uppercase tracking-[0.2em] text-rame-sabbia
-                                            text-[clamp(1.6rem,9vw,2.3rem)]
-                                            sm:text-[clamp(4.4rem,6vw,3.4rem)] 
-                                            md:text-[clamp(2.3rem,4vw,3.6rem)] 
-                                            2xl:text-[clamp(3.5rem,1vw,4.5rem)]"
+                                text={FIRST_TEXT}
+                                className="m-0 font-black uppercase tracking-[0.18em] text-rame-sabbia leading-tight
+                                            text-[clamp(1.8rem,8vw,2.4rem)]
+                                            sm:text-[clamp(2.6rem,6vw,3.2rem)]
+                                            md:text-[clamp(3rem,4.5vw,3.8rem)]
+                                            lg:text-[clamp(3rem,4vw,3.4rem)]
+                                            2xl:text-[clamp(3.5rem,3vw,4.4rem)]"
                                 textAlign="center"
                                 splitType="chars"
                                 delay={CHAR_DELAY}
@@ -175,35 +139,51 @@ export default function Hero() {
                                 from={{ opacity: 0, y: 24 }}
                                 to={{ opacity: 1, y: 0 }}
                             />
-                        ) : null}
+                        ) : (
+                            <span aria-hidden="true" className="inline-block h-full w-full opacity-0">
+                                &nbsp;
+                            </span>
+                        )}
                     </div>
-                ) : null}
-            </div>
 
-            {/* 4) Subtitle con ease-in, solo dopo i due SplitText */}
-            {/* Qui per modificare posizionamento del subtitle attraverso i vari formati */}
-            <div
-                className="
-                            z-10 flex justify-center text-center
-                            px-4 lg:px-4
-                            absolute inset-x-0
-                            top-[clamp(30rem,44vw,32rem)]
-                            sm:top-[clamp(32rem,44vw,34rem)]
-                            md:top-[clamp(34rem,44vw,46rem)]
-                            2xl:top-[clamp(36rem,44vw,38rem)]
-                        "
-            >
-                {showSubtitle ? (
-                    <motion.p
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeIn" }}
-                        /* Modifica la dimensione del testo nei vari formati */
-                        className="font-semibold uppercase tracking-[0.32em] text-bianco"
-                    >
-                        DOVE LA VISIONE PRENDE FORMA
-                    </motion.p>
-                ) : null}
+                    <div className="flex w-full justify-center text-center min-h-[2.75rem] sm:min-h-[3.25rem] md:min-h-[4rem] lg:min-h-[1rem] ">
+                        {showSecondLine ? (
+                            <SplitText
+                                text={SECOND_TEXT}
+                                className="m-0 font-black uppercase tracking-[0.18em] text-rame-sabbia leading-tight
+                                            text-[clamp(1.8rem,8vw,2.4rem)]
+                                            sm:text-[clamp(2.6rem,6vw,3.2rem)]
+                                            md:text-[clamp(3rem,4.5vw,3.8rem)]
+                                            lg:text-[clamp(3rem,4vw,3.4rem)]
+                                            2xl:text-[clamp(3.5rem,3vw,4.4rem)]"
+                                textAlign="center"
+                                splitType="chars"
+                                delay={CHAR_DELAY}
+                                duration={0.6}
+                                ease={[0.5, 1.5, 0.5, 1.5]}
+                                from={{ opacity: 0, y: 24 }}
+                                to={{ opacity: 1, y: 0 }}
+                            />
+                        ) : (
+                            <span aria-hidden="true" className="inline-block h-full w-full opacity-0">
+                                &nbsp;
+                            </span>
+                        )}
+                    </div>
+                </div>
+
+                <div className="min-h-[2.5rem] md:mt-2 md:min-h-[1.5rem] px-4 lg:-mt-4">
+                    {showSubtitle ? (
+                        <motion.p
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, ease: "easeIn" }}
+                            className="text-xs font-semibold uppercase tracking-[0.32em] text-bianco sm:text-sm md:text-base"
+                        >
+                            DOVE LA VISIONE PRENDE FORMA
+                        </motion.p>
+                    ) : null}
+                </div>
             </div>
         </section>
     );
