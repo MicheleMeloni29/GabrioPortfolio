@@ -16,14 +16,13 @@ const getCircleSizes = (width: number): CircleSizes => {
     if (width >= 640) return { outer: 190, inner: 115 };
     return { outer: 160, inner: 100 };
 };
+const INITIAL_CIRCLE_SIZES: CircleSizes = getCircleSizes(0);
 
 export default function WhyCoreSection() {
     const sectionRef = useRef<HTMLElement | null>(null);
     const hasIntersectedRef = useRef(false);
     const [replayKey, setReplayKey] = useState(0);
-    const [circleSizes, setCircleSizes] = useState<CircleSizes>(() =>
-        getCircleSizes(typeof window === "undefined" ? 0 : window.innerWidth)
-    );
+    const [circleSizes, setCircleSizes] = useState<CircleSizes>(INITIAL_CIRCLE_SIZES);
 
     useEffect(() => {
         const node = sectionRef.current;

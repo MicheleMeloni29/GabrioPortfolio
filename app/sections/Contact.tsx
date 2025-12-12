@@ -16,7 +16,7 @@ export default function ContactSection() {
             <div className="mx-auto w-full max-w-5xl text-center text-carbone pt-12 pb-8">
                 <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">Cosa faccio</h1>
             </div>
-            <div className="text-center text-2xl">
+            <div className="text-center text-md">
                 <h2>
                     Pronto a dare forma al cuore del tuo brand?
                 </h2>
@@ -25,8 +25,8 @@ export default function ContactSection() {
                 </h2>
             </div>
 
-            <div className="mt-6 flex w-full max-w-5xl flex-col items-center gap-12">
-                <div className="flex w-full flex-col items-center justify-center gap-8 px-4 lg:flex-row lg:flex-nowrap lg:justify-center lg:gap-66">
+            <div className="mt-6 flex w-full max-w-xl flex-col items-center gap-12">
+                <div className="flex w-full flex-row items-center justify-center gap-6 px-4 lg:flex-row lg:flex-nowrap lg:justify-center lg:gap-66">
                     <div className="group relative flex items-center">
                         <a
                             href={CONTACT_INFO.instagram}
@@ -58,13 +58,13 @@ export default function ContactSection() {
                 </div>
 
                 <form
-                    className="w-full rounded-[2.5rem] bg-carbone p-4 pb-6 shadow-xl backdrop-blur lg:max-w-5xl"
+                    className="w-full rounded-[2.5rem] bg-carbone p-5 shadow-xl backdrop-blur lg:max-w-5xl"
                     action={`mailto:${CONTACT_INFO.email}`}
                     method="POST"
                     encType="text/plain"
                 >
                     <div className="flex flex-col gap-4">
-                        <div className="grid gap-10 sm:grid-cols-2">
+                        <div className="grid gap-4 sm:grid-cols-2">
                             <div className="text-left">
                                 <label htmlFor="name" className="text-xs font-semibold uppercase tracking-[0.3em] text-rame-sabbia">
                                     Nome e Cognome
@@ -75,7 +75,7 @@ export default function ContactSection() {
                                     type="text"
                                     required
                                     placeholder="Come ti chiami?"
-                                    className="mt-3 w-full border-b border-rame-sabbia/20 bg-transparent px-1 pb-2 text-lg text-rame-sabbia placeholder:text-rame-sabbia/40 outline-none transition focus:border-rame-sabbia"
+                                    className="mt-3 w-full border-b border-rame-sabbia/20 bg-transparent px-1 pb-2 text-xs text-rame-sabbia placeholder:text-rame-sabbia/40 outline-none transition focus:border-rame-sabbia"
                                 />
                             </div>
                             <div className="text-left">
@@ -88,7 +88,7 @@ export default function ContactSection() {
                                     type="email"
                                     required
                                     placeholder="Inserisci la tua email"
-                                    className="mt-3 w-full border-b border-rame-sabbia/20 bg-transparent px-1 pb-2 text-lg lowercase text-rame-sabbia placeholder:text-rame-sabbia/40 outline-none transition focus:border-rame-sabbia"
+                                    className="mt-3 w-full border-b border-rame-sabbia/20 bg-transparent px-1 pb-2 text-xs lowercase text-rame-sabbia placeholder:text-rame-sabbia/40 outline-none transition focus:border-rame-sabbia"
                                 />
                             </div>
                         </div>
@@ -102,7 +102,7 @@ export default function ContactSection() {
                                 required
                                 rows={2}
                                 placeholder="Raccontami la tua idea in poche righe..."
-                                className="mt-3 w-full rounded-2xl border border-rame-sabbia/20 bg-transparent px-4 py-3 text-base text-rame-sabbia placeholder:text-rame-sabbia/40 outline-none transition focus:border-rame-sabbia"
+                                className="mt-3 w-full rounded-2xl border border-rame-sabbia/20 bg-transparent px-4 py-3 text-xs text-rame-sabbia placeholder:text-rame-sabbia/40 outline-none transition focus:border-rame-sabbia"
                             />
                         </div>
                     </div>
