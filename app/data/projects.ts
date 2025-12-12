@@ -33,6 +33,7 @@ export const projectsData: readonly ProjectPreview[] = [
             { id: "stampa", gradient: "linear-gradient(135deg,#4F5F73,#94A6B3)" },
             { id: "poster", gradient: "linear-gradient(135deg,#B98B5A,#F2D0A9)" },
             { id: "set", gradient: "linear-gradient(135deg,#1C1C1C,#595959)" },
+            { id: "lookbook", gradient: "linear-gradient(135deg,#FFCFDF,#F3A6D3)" },
         ],
     },
     {

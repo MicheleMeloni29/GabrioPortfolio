@@ -69,7 +69,7 @@ export default function ProjectsSection() {
             id="projects"
             className="snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20"
         >
-            <div className="mx-auto flex max-w-7xl flex-1 flex-col gap-10">
+            <div className="mx-auto flex max-w-8xl flex-1 flex-col gap-10">
                 <div
                     data-allow-scroll="true"
                     className="no-scrollbar mt-12 flex w-full snap-x snap-mandatory gap-6 overflow-x-auto pb-6 sm:mt-16 lg:mt-8 cursor-grab"
@@ -82,7 +82,8 @@ export default function ProjectsSection() {
                             key={`${project.id}-${loopIndex}`}
                             role="listitem"
                             aria-hidden={loopIndex !== MIDDLE_LOOP_INDEX}
-                            className="flex min-w-[280px] flex-col rounded-3xl bg-white/5 p-5 text-left shadow-lg shadow-black/30 backdrop-blur sm:min-w-[320px] sm:p-4 lg:min-w-[360px] xl:min-w-[400px] snap-center"
+                            className="flex min-w-[290px] flex-col rounded-3xl bg-white/5 p-5 text-left shadow-lg shadow-black/30 backdrop-blur 
+                                        sm:min-w-[220px] md:min-w-[300px] lg:min-w-[320px] xl:min-w-[400px] max-h-[80vh] snap-center"
                         >
                             <div
                                 className="relative aspect-4/3 w-full overflow-hidden rounded-2xl sm:aspect-video"
@@ -102,8 +103,8 @@ export default function ProjectsSection() {
                                 ))}
                             </div>
 
-                            <h3 className="mt-26 text-lg font-semibold text-rame-sabbia">{project.title}</h3>
-                            <p className="mt-2 mb-4 text-sm leading-relaxed text-rame-sabbia/70">{project.description}</p>
+                            <h3 className="mt-2 md:mt-22 lg:mt-24 xl:mt-32 text-lg font-semibold text-rame-sabbia">{project.title}</h3>
+                            <p className="mt-1 mb-4 text-sm leading-relaxed text-rame-sabbia/70">{project.description}</p>
                         </article>
                     ))}
                 </div>
