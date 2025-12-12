@@ -67,7 +67,7 @@ export default function ProjectsSection() {
     return (
         <section
             id="projects"
-            className="snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20"
+            className="overflow-x-hidden snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20"
         >
             <div className="mx-auto flex max-w-8xl flex-1 flex-col gap-10">
                 <div
