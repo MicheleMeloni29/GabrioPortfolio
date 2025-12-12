@@ -236,7 +236,7 @@ export default function ProjectsSection() {
         >
             <div className="mx-auto flex w-full max-w-8xl flex-1 flex-col gap-10">
                 {/* Center the carousel area */}
-                <div className="flex w-full flex-col items-center">
+                <div className="flex w-full flex-1 flex-col items-center justify-between">
                     <div
                         data-allow-scroll="true"
                         ref={scrollContainerRef}

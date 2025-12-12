@@ -91,7 +91,7 @@ export default function AboutSection() {
                 <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">Chi sono</h1>
             </div>
 
-            <div className="mx-auto mt-6 sm:mt-8 flex w-full max-w-7xl flex-1 flex-col justify-center gap-14 md:gap-18 text-rame-sabbia text-[0.8rem] sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
+            <div className="mx-auto mt-4 sm:mt-8 flex w-full max-w-7xl flex-1 flex-col justify-center gap-14 md:gap-18 text-rame-sabbia text-[0.8rem] sm:text-sm md:text-md lg:text-lg xl:text-xl 2xl:text-2xl">
                 <motion.p
                     className="max-w-4xl text-left font-semibold leading-snug"
                     initial={{ x: "-45vw", opacity: 0 }}
