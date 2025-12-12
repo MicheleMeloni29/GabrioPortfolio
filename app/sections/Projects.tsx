@@ -303,7 +303,10 @@ export default function ProjectsSection() {
                             </article>
                         ))}
                     </div>
-                    <div className="flex items-center justify-center gap-2 sm:mt-5 sm:gap-3">
+                    <div
+                        className="flex w-full items-center justify-center gap-2 pb-4 sm:gap-3"
+                        style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))" }}
+                    >
                         {projectsData.map((project, index) => {
                             const isActive = index === activeProjectIndex;
                             return (
