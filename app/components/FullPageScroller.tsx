@@ -238,7 +238,7 @@ export default function FullPageScroller({
     return (
         <main
             ref={containerRef}
-            className={`no-scrollbar flex h-full w-full snap-y snap-mandatory flex-col overflow-y-auto scroll-smooth ${className}`}
+            className={`no-scrollbar flex h-full w-full max-w-full snap-y snap-mandatory flex-col overflow-y-auto overflow-x-hidden overscroll-x-none touch-pan-y scroll-smooth ${className}`}
         >
             {children}
         </main>

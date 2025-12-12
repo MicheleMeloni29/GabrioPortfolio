@@ -1,17 +1,52 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { TouchEvent, WheelEvent as ReactWheelEvent } from "react";
 import { projectsData } from "../data/projects";
 
 const LOOP_MULTIPLIER = 5;
 const MIDDLE_LOOP_INDEX = Math.floor(LOOP_MULTIPLIER / 2);
+const projectsCount = projectsData.length;
+
 const infiniteProjects = Array.from({ length: LOOP_MULTIPLIER }, (_, loopIndex) =>
     projectsData.map((project) => ({ project, loopIndex }))
 ).flat();
 
+
 export default function ProjectsSection() {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
+    const segmentWidthRef = useRef(0);
+    const scrollIndicatorFrameRef = useRef<number | null>(null);
+    const activeProjectIndexRef = useRef(0);
+    const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
+    // Keep your touch tracking (unchanged)
+    const externalTouchMapRef = useRef<Map<number, { startX: number; startY: number }>>(new Map());
+
+    // Hover pause for auto-scroll
+    const isHoveringRef = useRef(false);
+
+    // Wheel handler (unchanged)
+    const handleCarouselWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        const absX = Math.abs(event.deltaX);
+        const absY = Math.abs(event.deltaY);
+
+        if (absY > absX) {
+            event.preventDefault();
+            event.stopPropagation();
+            container.scrollLeft += event.deltaY;
+            return;
+        }
+
+        if (absX > 0) {
+            event.stopPropagation();
+        }
+    };
+
+    // Infinite loop scroll boundaries (unchanged logic)
     useEffect(() => {
         const container = scrollContainerRef.current;
         if (!container) return;
@@ -20,10 +55,14 @@ export default function ProjectsSection() {
         let frameId: number | null = null;
 
         const calculateSegmentWidth = () => {
-            if (!container) return;
             segmentWidth = container.scrollWidth / LOOP_MULTIPLIER;
+            segmentWidthRef.current = segmentWidth;
             if (segmentWidth > 0) {
-                container.scrollLeft = segmentWidth * MIDDLE_LOOP_INDEX;
+                const perProjectWidth =
+                    projectsCount > 0 ? segmentWidth / projectsCount : 0;
+                const offset =
+                    perProjectWidth * activeProjectIndexRef.current || 0;
+                container.scrollLeft = segmentWidth * MIDDLE_LOOP_INDEX + offset;
             }
         };
 
@@ -31,7 +70,7 @@ export default function ProjectsSection() {
 
         let isAdjusting = false;
         const handleScroll = () => {
-            if (!container || !segmentWidth || isAdjusting) return;
+            if (!segmentWidth || isAdjusting) return;
 
             const startBoundary = segmentWidth * (MIDDLE_LOOP_INDEX - 1);
             const endBoundary = segmentWidth * (MIDDLE_LOOP_INDEX + 1);
@@ -64,49 +103,224 @@ export default function ProjectsSection() {
         };
     }, []);
 
+    // Prevent page horizontal scroll (unchanged)
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+
+        const previousBodyOverflowX = document.body.style.overflowX;
+        const previousDocumentOverflowX = document.documentElement.style.overflowX;
+
+        document.body.style.overflowX = "hidden";
+        document.documentElement.style.overflowX = "hidden";
+
+        return () => {
+            document.body.style.overflowX = previousBodyOverflowX;
+            document.documentElement.style.overflowX = previousDocumentOverflowX;
+        };
+    }, []);
+
+    useEffect(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        const updateActiveIndex = () => {
+            scrollIndicatorFrameRef.current = null;
+            const segmentWidth =
+                segmentWidthRef.current ||
+                container.scrollWidth / LOOP_MULTIPLIER;
+            if (!segmentWidth || !projectsCount) return;
+
+            const perProjectWidth = segmentWidth / projectsCount;
+            if (!perProjectWidth) return;
+
+            const normalized =
+                ((container.scrollLeft % segmentWidth) + segmentWidth) %
+                segmentWidth;
+            const nextIndex =
+                Math.round(normalized / perProjectWidth) % projectsCount;
+
+            if (nextIndex !== activeProjectIndexRef.current) {
+                activeProjectIndexRef.current = nextIndex;
+                setActiveProjectIndex(nextIndex);
+            }
+        };
+
+        const handleScroll = () => {
+            if (scrollIndicatorFrameRef.current !== null) return;
+            scrollIndicatorFrameRef.current = requestAnimationFrame(
+                updateActiveIndex
+            );
+        };
+
+        container.addEventListener("scroll", handleScroll, { passive: true });
+        updateActiveIndex();
+
+        const resizeObserver =
+            typeof ResizeObserver !== "undefined"
+                ? new ResizeObserver(updateActiveIndex)
+                : null;
+        resizeObserver?.observe(container);
+
+        return () => {
+            container.removeEventListener("scroll", handleScroll);
+            if (scrollIndicatorFrameRef.current !== null) {
+                cancelAnimationFrame(scrollIndicatorFrameRef.current);
+            }
+            resizeObserver?.disconnect();
+        };
+    }, []);
+
+    const scrollToProject = (index: number) => {
+        const container = scrollContainerRef.current;
+        if (!container || !projectsCount) return;
+
+        const segmentWidth =
+            segmentWidthRef.current ||
+            container.scrollWidth / LOOP_MULTIPLIER;
+        if (!segmentWidth) return;
+
+        const perProjectWidth = segmentWidth / projectsCount;
+        if (!perProjectWidth) return;
+
+        const target =
+            segmentWidth * MIDDLE_LOOP_INDEX + perProjectWidth * index;
+        container.scrollTo({ left: target, behavior: "smooth" });
+    };
+
+    // Touch helpers (unchanged)
+    const isTouchInsideCarousel = (target: EventTarget | null) => {
+        const carousel = scrollContainerRef.current;
+        return !!(carousel && target instanceof Node && carousel.contains(target));
+    };
+
+    const handleSectionTouchStart = (event: TouchEvent<HTMLElement>) => {
+        for (const touch of Array.from(event.changedTouches)) {
+            if (isTouchInsideCarousel(touch.target)) continue;
+            externalTouchMapRef.current.set(touch.identifier, {
+                startX: touch.clientX,
+                startY: touch.clientY,
+            });
+        }
+    };
+
+    const handleSectionTouchMove = (event: TouchEvent<HTMLElement>) => {
+        for (const touch of Array.from(event.changedTouches)) {
+            const tracked = externalTouchMapRef.current.get(touch.identifier);
+            if (!tracked) continue;
+
+            const deltaX = Math.abs(touch.clientX - tracked.startX);
+            const deltaY = Math.abs(touch.clientY - tracked.startY);
+
+            // Block horizontal swipe on the page (outside carousel)
+            if (deltaX > deltaY) {
+                event.preventDefault();
+                return;
+            }
+        }
+    };
+
+    const cleanupTouchTracking = (event: TouchEvent<HTMLElement>) => {
+        for (const touch of Array.from(event.changedTouches)) {
+            externalTouchMapRef.current.delete(touch.identifier);
+        }
+    };
+
     return (
         <section
             id="projects"
-            className="overflow-x-hidden snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20"
+            onTouchStart={handleSectionTouchStart}
+            onTouchMove={handleSectionTouchMove}
+            onTouchEnd={cleanupTouchTracking}
+            onTouchCancel={cleanupTouchTracking}
+            className="snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20 overflow-x-clip overscroll-x-none touch-pan-y"
         >
-            <div className="mx-auto flex max-w-8xl flex-1 flex-col gap-10">
-                <div
-                    data-allow-scroll="true"
-                    className="no-scrollbar mt-12 flex w-full snap-x snap-mandatory gap-6 overflow-x-auto pb-6 sm:mt-16 lg:mt-8 cursor-grab touch-pan-x"
-                    ref={scrollContainerRef}
-                    role="list"
-                    aria-label="Progetti in evidenza"
-                >
-                    {infiniteProjects.map(({ project, loopIndex }) => (
-                        <article
-                            key={`${project.id}-${loopIndex}`}
-                            role="listitem"
-                            aria-hidden={loopIndex !== MIDDLE_LOOP_INDEX}
-                            className="flex min-w-[290px] flex-col rounded-3xl bg-white/5 p-5 text-left shadow-lg shadow-black/30 backdrop-blur 
-                                        sm:min-w-[220px] md:min-w-[300px] lg:min-w-[320px] xl:min-w-[400px] max-h-[80vh] sm:max-h-[85vh] md:max-h-[90vh] snap-center"
-                        >
-                            <div
-                                className="relative aspect-4/3 w-full overflow-hidden rounded-2xl sm:aspect-video"
-                                style={{ background: project.coverGradient }}
+            <div className="mx-auto flex w-full max-w-8xl flex-1 flex-col gap-10">
+                {/* Center the carousel area */}
+                <div className="flex w-full flex-col items-center">
+                    <div
+                        data-allow-scroll="true"
+                        ref={scrollContainerRef}
+                        role="list"
+                        aria-label="Progetti in evidenza"
+                        style={{ touchAction: "pan-x" }}
+                        onWheel={handleCarouselWheel}
+                        onMouseEnter={() => {
+                            isHoveringRef.current = true;
+                        }}
+                        onMouseLeave={() => {
+                            isHoveringRef.current = false;
+                        }}
+                        className="
+              no-scrollbar
+              mt-12
+              flex
+              w-full
+              max-w-8xl
+              min-w-0
+              snap-x snap-mandatory
+              gap-6
+              overflow-x-auto overflow-y-hidden
+              pb-6
+              sm:mt-16
+              lg:mt-8
+              cursor-grab
+              touch-pan-x
+              overscroll-x-contain
+              px-6 sm:px-10 lg:px-16
+            "
+                    >
+                        {infiniteProjects.map(({ project, loopIndex }) => (
+                            <article
+                                key={`${project.id}-${loopIndex}`}
+                                role="listitem"
+                                aria-hidden={loopIndex !== MIDDLE_LOOP_INDEX}
+                                className="flex min-w-[240px] flex-col rounded-3xl bg-white/5 p-4 text-left shadow-lg shadow-black/30 backdrop-blur 
+                                        sm:min-w-[220px] md:min-w-[300px] lg:min-w-[320px] xl:min-w-[400px] max-h-[80vh] snap-center"
                             >
-                            </div>
+                                <div
+                                    className="relative aspect-4/3 w-full overflow-hidden rounded-2xl sm:aspect-video"
+                                    style={{ background: project.coverGradient }}
+                                ></div>
 
-                            <div className="mt-3 grid grid-cols-3 gap-1.5 sm:grid-cols-4">
-                                {project.images.slice(0, 7).map((image) => (
-                                    <div
-                                        key={image.id}
-                                        className="aspect-square overflow-hidden rounded-xl border border-white/10"
-                                        style={{ background: image.gradient }}
-                                    >
-                                        <span className="sr-only">{image.id}</span>
-                                    </div>
-                                ))}
-                            </div>
+                                <div className="mt-3 grid grid-cols-4 gap-1.5 sm:grid-cols-4">
+                                    {project.images.slice(0, 7).map((image) => (
+                                        <div
+                                            key={image.id}
+                                            className="aspect-square overflow-hidden rounded-xl border border-white/10"
+                                            style={{ background: image.gradient }}
+                                        >
+                                            <span className="sr-only">{image.id}</span>
+                                        </div>
+                                    ))}
+                                </div>
 
-                            <h3 className="mt-2 md:mt-22 lg:mt-24 xl:mt-32 text-lg font-semibold text-rame-sabbia">{project.title}</h3>
-                            <p className="mt-1 mb-4 text-sm leading-relaxed text-rame-sabbia/70">{project.description}</p>
-                        </article>
-                    ))}
+                                <h3 className="mt-22 md:mt-18 lg:mt-20 xl:mt-28 text-lg font-semibold text-rame-sabbia">
+                                    {project.title}
+                                </h3>
+                                <p className="mt-1 text-sm leading-relaxed text-rame-sabbia/70">
+                                    {project.description}
+                                </p>
+                            </article>
+                        ))}
+                    </div>
+                    <div className="flex items-center justify-center gap-2 sm:mt-5 sm:gap-3">
+                        {projectsData.map((project, index) => {
+                            const isActive = index === activeProjectIndex;
+                            return (
+                                <button
+                                    key={project.id}
+                                    type="button"
+                                    aria-label={`Mostra il progetto ${project.title}`}
+                                    onClick={() => scrollToProject(index)}
+                                    className={`h-2 rounded-full transition-all duration-200 ${
+                                        isActive
+                                            ? "w-8 bg-rame-sabbia"
+                                            : "w-2 bg-white/25 hover:bg-white/40 focus-visible:bg-white/50"
+                                    }`}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </section>

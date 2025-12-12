@@ -36,9 +36,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it">
+    <html lang="it" className="max-w-full overflow-x-hidden overscroll-x-none">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserratRegular.variable} ${montserratBold.variable} bg-[#030303] text-white antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${montserratRegular.variable} ${montserratBold.variable} bg-[#030303] text-white antialiased overflow-x-clip`}
       >
         {children}
       </body>
