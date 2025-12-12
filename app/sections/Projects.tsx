@@ -72,7 +72,7 @@ export default function ProjectsSection() {
             <div className="mx-auto flex max-w-8xl flex-1 flex-col gap-10">
                 <div
                     data-allow-scroll="true"
-                    className="no-scrollbar mt-12 flex w-full snap-x snap-mandatory gap-6 overflow-x-auto pb-6 sm:mt-16 lg:mt-8 cursor-grab"
+                    className="no-scrollbar mt-12 flex w-full snap-x snap-mandatory gap-6 overflow-x-auto pb-6 sm:mt-16 lg:mt-8 cursor-grab touch-pan-x"
                     ref={scrollContainerRef}
                     role="list"
                     aria-label="Progetti in evidenza"
@@ -83,7 +83,7 @@ export default function ProjectsSection() {
                             role="listitem"
                             aria-hidden={loopIndex !== MIDDLE_LOOP_INDEX}
                             className="flex min-w-[290px] flex-col rounded-3xl bg-white/5 p-5 text-left shadow-lg shadow-black/30 backdrop-blur 
-                                        sm:min-w-[220px] md:min-w-[300px] lg:min-w-[320px] xl:min-w-[400px] max-h-[80vh] snap-center"
+                                        sm:min-w-[220px] md:min-w-[300px] lg:min-w-[320px] xl:min-w-[400px] max-h-[80vh] sm:max-h-[85vh] md:max-h-[90vh] snap-center"
                         >
                             <div
                                 className="relative aspect-4/3 w-full overflow-hidden rounded-2xl sm:aspect-video"
