@@ -103,7 +103,7 @@ export default function ServicesSection() {
                 <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">Cosa faccio</h1>
             </div>
 
-            <div className="mt-14 sm:mt-16 flex w-full flex-1 md:max-w-5xl  md:justify-center">
+            <div className="mt-10 sm:mt-10 flex w-full flex-1 md:max-w-5xl  md:justify-center">
                 {showMenu ? (
                     <motion.div
                         className="w-full h-full"
