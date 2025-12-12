@@ -7,6 +7,7 @@ import FlowingMenu from "../components/FlowingMenu";
 
 export default function ServicesSection() {
     const [showMenu, setShowMenu] = useState(false);
+    const [hasMounted, setHasMounted] = useState(false);
     const sectionRef = useRef<HTMLElement | null>(null);
     const timersRef = useRef<number[]>([]);
     const hasPlayedRef = useRef(false);
@@ -66,6 +67,10 @@ export default function ServicesSection() {
     }, [clearTimers, resetSequence]);
 
     useEffect(() => {
+        setHasMounted(true);
+    }, []);
+
+    useEffect(() => {
         const node = sectionRef.current;
         if (!node) return;
 
@@ -104,7 +109,7 @@ export default function ServicesSection() {
             </div>
 
             <div className="mt-10 sm:mt-10 flex w-full flex-1 md:max-w-5xl  md:justify-center">
-                {showMenu ? (
+                {showMenu && hasMounted ? (
                     <motion.div
                         className="w-full h-full"
                         initial={{ opacity: 0, y: 30 }}

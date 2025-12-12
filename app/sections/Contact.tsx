@@ -1,12 +1,12 @@
 import { Instagram, Linkedin, MessageCircle, Mail } from "lucide-react";
 
 const CONTACT_INFO = {
-    email: "ciao@tuobrand.com",
+    email: "michele.meloni2@icloud.com",
     instagram: "https://www.instagram.com/corestudio_design/",
     linkedin: "https://www.linkedin.com/in/tuo-profilo",
-    whatsapp: "https://wa.me/393331234567",
-    mail: "mailto:ciao@tuobrand.com?subject=Nuovo%20progetto",
-    mailLabel: "ciao@tuobrand.com",
+    whatsapp: "https://wa.me/393473728852",
+    mail: "mailto:michele.meloni2@icloud.com?subject=Nuovo%20progetto",
+    mailLabel: "michele.meloni2@icloud.com",
 };
 
 export default function ContactSection() {
