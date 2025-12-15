@@ -1,9 +1,11 @@
+'use client';
+
 import { Instagram, MessageCircle, Mail } from "lucide-react";
+import { useCallback } from "react";
 
 const CONTACT_INFO = {
     email: "michele.meloni2@icloud.com",
     instagram: "https://www.instagram.com/corestudio_design/",
-    linkedin: "https://www.linkedin.com/in/tuo-profilo",
     whatsapp: "https://wa.me/393473728852",
     whatsappLabel: "+39 347 372 8852",
     mail: "mailto:michele.meloni2@icloud.com?subject=Nuovo%20progetto",
@@ -33,11 +35,17 @@ const CONTACT_METHODS = [
         href: CONTACT_INFO.mail,
         label: CONTACT_INFO.mailLabel,
         ariaLabel: "Invia una email",
-        external: false,
+        external: true,
     },
 ];
 
 export default function ContactSection() {
+    const handleMailClick = useCallback(() => {
+        if (typeof window !== "undefined") {
+            window.location.href = CONTACT_INFO.mail;
+        }
+    }, []);
+
     return (
         <section
             id="contacts"
@@ -53,27 +61,31 @@ export default function ContactSection() {
 
             <div className="mt-10 w-full max-w-5xl px-4">
                 <div className="flex w-full flex-col items-center gap-8 md:flex-row md:flex-wrap md:justify-center md:gap-16 lg:flex-nowrap lg:gap-24 xl:gap-32">
-                    {CONTACT_METHODS.map(({ id, icon: Icon, href, label, ariaLabel, external }) => (
-                        <div key={id} className="flex flex-col items-center text-center md:w-[220px] lg:w-[260px]">
-                            <div className="group relative flex items-center justify-center">
-                                <a
-                                    href={href}
-                                    target={external ? "_blank" : undefined}
-                                    rel={external ? "noopener noreferrer" : undefined}
-                                    aria-label={ariaLabel}
-                                    className="flex h-16 w-16 items-center justify-center rounded-full bg-transparent text-carbone/60 transition duration-200 hover:-translate-y-1 hover:bg-carbone"
-                                >
-                                    <Icon className="h-10 w-10 text-carbone transition-colors duration-200 group-hover:text-rame-sabbia" />
-                                </a>
-                                <span className="pointer-events-none absolute left-full ml-4 hidden whitespace-nowrap text-sm font-semibold uppercase tracking-[0.2em] text-carbone/70 opacity-0 transition-all duration-200 lg:inline-block lg:group-hover:translate-x-1 lg:group-hover:opacity-100">
+                    {CONTACT_METHODS.map(({ id, icon: Icon, href, label, ariaLabel, external }) => {
+                        const isMailLink = id === "mail";
+                        return (
+                            <div key={id} className="flex flex-col items-center text-center md:w-[220px] lg:w-[260px]">
+                                <div className="group relative flex items-center justify-center">
+                                    <a
+                                        href={href}
+                                        target={external ? "_blank" : undefined}
+                                        rel={external ? "noopener noreferrer" : undefined}
+                                        onClick={isMailLink ? handleMailClick : undefined}
+                                        aria-label={ariaLabel}
+                                        className="flex h-16 w-16 items-center justify-center rounded-full bg-transparent text-carbone/60 transition duration-200 hover:-translate-y-1 hover:bg-carbone"
+                                    >
+                                        <Icon className="h-10 w-10 text-carbone transition-colors duration-200 group-hover:text-rame-sabbia" />
+                                    </a>
+                                    <span className="pointer-events-none absolute left-full ml-4 hidden whitespace-nowrap text-sm font-semibold uppercase tracking-[0.2em] text-carbone/70 opacity-0 transition-all duration-200 lg:inline-block lg:group-hover:translate-x-1 lg:group-hover:opacity-100">
+                                        {label}
+                                    </span>
+                                </div>
+                                <span className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-carbone/70 lg:hidden">
                                     {label}
                                 </span>
                             </div>
-                            <span className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-carbone/70 lg:hidden">
-                                {label}
-                            </span>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </section>
