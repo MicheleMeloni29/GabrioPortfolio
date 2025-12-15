@@ -1,13 +1,41 @@
-import { Instagram, Linkedin, MessageCircle, Mail } from "lucide-react";
+import { Instagram, MessageCircle, Mail } from "lucide-react";
 
 const CONTACT_INFO = {
     email: "michele.meloni2@icloud.com",
     instagram: "https://www.instagram.com/corestudio_design/",
     linkedin: "https://www.linkedin.com/in/tuo-profilo",
     whatsapp: "https://wa.me/393473728852",
+    whatsappLabel: "+39 347 372 8852",
     mail: "mailto:michele.meloni2@icloud.com?subject=Nuovo%20progetto",
     mailLabel: "michele.meloni2@icloud.com",
 };
+
+const CONTACT_METHODS = [
+    {
+        id: "instagram",
+        icon: Instagram,
+        href: CONTACT_INFO.instagram,
+        label: "@corestudio_design",
+        ariaLabel: "Apri il profilo Instagram",
+        external: true,
+    },
+    {
+        id: "whatsapp",
+        icon: MessageCircle,
+        href: CONTACT_INFO.whatsapp,
+        label: `WhatsApp: ${CONTACT_INFO.whatsappLabel}`,
+        ariaLabel: "Apri la chat WhatsApp",
+        external: true,
+    },
+    {
+        id: "mail",
+        icon: Mail,
+        href: CONTACT_INFO.mail,
+        label: CONTACT_INFO.mailLabel,
+        ariaLabel: "Invia una email",
+        external: false,
+    },
+];
 
 export default function ContactSection() {
     return (
@@ -19,58 +47,34 @@ export default function ContactSection() {
                 <h1 className="text-4xl font-bold uppercase sm:text-5xl md:text-6xl lg:text-6xl xl:text-6xl 2xl:text-6xl">Parliamone</h1>
             </div>
             <div className="text-center text-lg sm:text-lg md:text-lg xl:text-2xl 2xl:text-3xl text">
-                <h2>
-                    Pronto a dare forma al cuore del tuo brand?
-                </h2>
-                <h2>
-                    Scrivimi per iniziare un nuovo progetto.
-                </h2>
+                <h2>Pronto a dare forma al cuore del tuo brand?</h2>
+                <h2>Scrivimi per iniziare un nuovo progetto.</h2>
             </div>
 
-            <div className="mt-10 flex w-full max-w-xl flex-col items-center gap-6">
-                <div className="flex w-full flex-row flex-wrap items-center justify-center gap-7 xl:gap-40 px-4">
-                    <div className="group relative flex items-center">
-                        <a
-                            href={CONTACT_INFO.instagram}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Apri il profilo Instagram"
-                            className="flex h-16 w-16 items-center justify-center rounded-full bg-transparent text-carbone/50 transition hover:-translate-y-1 hover:bg-carbone"
-                        >
-                            <Instagram className="h-10 w-10 text-carbone transition-colors duration-200 group-hover:text-rame-sabbia" />
-                        </a>
-                        <span className="pointer-events-none absolute left-full ml-4 whitespace-nowrap text-sm font-semibold uppercase tracking-[0.2em] text-carbone/70 opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100">
-                            @corestudio_design
-                        </span>
-                    </div>
-                    <div className="group relative flex items-center">
-                        <a
-                            href={CONTACT_INFO.whatsapp}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Apri la chat WhatsApp"
-                            className="flex h-16 w-16 items-center justify-center rounded-full bg-transparent text-carbone/50 transition hover:-translate-y-1 hover:bg-carbone"
-                        >
-                            <MessageCircle className="h-10 w-10 text-carbone transition-colors duration-200 group-hover:text-rame-sabbia" />
-                        </a>
-                        <span className="pointer-events-none absolute left-full ml-4 whitespace-nowrap text-sm font-semibold uppercase tracking-[0.2em] text-carbone/70 opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100">
-                            WhatsApp: 393331234567
-                        </span>
-                    </div>
-                    <div className="group relative flex items-center">
-                        <a
-                            href={CONTACT_INFO.mail}
-                            aria-label="Invia una email"
-                            className="flex h-16 w-16 items-center justify-center rounded-full bg-transparent text-carbone/50 transition hover:-translate-y-1 hover:bg-carbone"
-                        >
-                            <Mail className="h-10 w-10 text-carbone transition-colors duration-200 group-hover:text-rame-sabbia" />
-                        </a>
-                        <span className="pointer-events-none absolute left-full ml-4 whitespace-nowrap text-sm font-semibold uppercase tracking-[0.2em] text-carbone/70 opacity-0 transition-all duration-200 group-hover:translate-x-1 group-hover:opacity-100">
-                            {CONTACT_INFO.mailLabel}
-                        </span>
-                    </div>
+            <div className="mt-10 w-full max-w-5xl px-4">
+                <div className="flex w-full flex-col items-center gap-8 md:flex-row md:flex-wrap md:justify-center md:gap-16 lg:flex-nowrap lg:gap-24 xl:gap-32">
+                    {CONTACT_METHODS.map(({ id, icon: Icon, href, label, ariaLabel, external }) => (
+                        <div key={id} className="flex flex-col items-center text-center md:w-[220px] lg:w-[260px]">
+                            <div className="group relative flex items-center justify-center">
+                                <a
+                                    href={href}
+                                    target={external ? "_blank" : undefined}
+                                    rel={external ? "noopener noreferrer" : undefined}
+                                    aria-label={ariaLabel}
+                                    className="flex h-16 w-16 items-center justify-center rounded-full bg-transparent text-carbone/60 transition duration-200 hover:-translate-y-1 hover:bg-carbone"
+                                >
+                                    <Icon className="h-10 w-10 text-carbone transition-colors duration-200 group-hover:text-rame-sabbia" />
+                                </a>
+                                <span className="pointer-events-none absolute left-full ml-4 hidden whitespace-nowrap text-sm font-semibold uppercase tracking-[0.2em] text-carbone/70 opacity-0 transition-all duration-200 lg:inline-block lg:group-hover:translate-x-1 lg:group-hover:opacity-100">
+                                    {label}
+                                </span>
+                            </div>
+                            <span className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-carbone/70 lg:hidden">
+                                {label}
+                            </span>
+                        </div>
+                    ))}
                 </div>
-
             </div>
         </section>
     );

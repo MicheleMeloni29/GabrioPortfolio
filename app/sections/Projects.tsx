@@ -232,11 +232,11 @@ export default function ProjectsSection() {
             onTouchMove={handleSectionTouchMove}
             onTouchEnd={cleanupTouchTracking}
             onTouchCancel={cleanupTouchTracking}
-            className="snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20 overflow-x-clip overscroll-x-none touch-pan-y"
+            className="snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-4 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20 overflow-x-clip overscroll-x-none touch-pan-y"
         >
-            <div className="mx-auto flex w-full max-w-8xl flex-1 flex-col gap-10">
+            <div className="mx-auto flex w-full max-w-8xl flex-1 flex-col gap-6 sm:gap-8">
                 {/* Center the carousel area */}
-                <div className="flex w-full flex-1 flex-col items-center justify-between">
+                <div className="flex w-full flex-1 flex-col items-center gap-2 sm:gap-3 lg:gap-2 lg:justify-between">
                     <div
                         data-allow-scroll="true"
                         ref={scrollContainerRef}
@@ -260,13 +260,13 @@ export default function ProjectsSection() {
               snap-x snap-mandatory
               gap-6
               overflow-x-auto overflow-y-hidden
-              pb-6
+              pb-3 sm:pb-4
               sm:mt-16
               lg:mt-8
               cursor-grab
               touch-pan-x
               overscroll-x-contain
-              px-6 sm:px-10 lg:px-16
+              px-4 sm:px-10 lg:px-16
             "
                     >
                         {infiniteProjects.map(({ project, loopIndex }) => (
@@ -304,7 +304,7 @@ export default function ProjectsSection() {
                         ))}
                     </div>
                     <div
-                        className="flex w-full items-center justify-center gap-2 pb-4 sm:gap-3"
+                        className="mt-2 flex w-full items-center justify-center gap-2 pb-2 sm:mt-2 sm:gap-3 sm:pb-2 lg:mt-0"
                         style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))" }}
                     >
                         {projectsData.map((project, index) => {
