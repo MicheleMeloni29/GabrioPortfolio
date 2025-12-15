@@ -28,7 +28,7 @@ export default function ContactSection() {
             </div>
 
             <div className="mt-10 flex w-full max-w-xl flex-col items-center gap-6">
-                <div className="flex w-full flex-row flex-wrap items-center justify-center gap-7 px-4">
+                <div className="flex w-full flex-row flex-wrap items-center justify-center gap-7 xl:gap-40 px-4">
                     <div className="group relative flex items-center">
                         <a
                             href={CONTACT_INFO.instagram}

@@ -3,6 +3,9 @@
 import React from 'react';
 import { gsap } from 'gsap';
 
+const AUTO_CYCLE_INITIAL_DELAY_MS = 1000;
+const AUTO_CYCLE_INTERVAL_MS = 3500;
+
 interface MenuItemProps {
     link: string;
     text: string;
@@ -58,30 +61,34 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
         };
     }, []);
 
+
+    // Start dopo 1 secondo + interval che parte dopo lo start
     React.useEffect(() => {
         if (!isTouchMode || items.length === 0) {
             setActiveIndex(null);
             return;
         }
 
-        // ⏳ Delay iniziale per evitare pannello vuoto
+        let intervalId: number | null = null;
+
         const startTimeout = window.setTimeout(() => {
             setActiveIndex(0);
-        }, 150);
 
-        const intervalId = window.setInterval(() => {
-            setActiveIndex((prev) => {
-                if (prev === null) return 0;
-                return (prev + 1) % items.length;
-            });
-        }, 3500);
+            intervalId = window.setInterval(() => {
+                setActiveIndex((prev) => {
+                    if (prev === null) return 0;
+                    return (prev + 1) % items.length;
+                });
+            }, AUTO_CYCLE_INTERVAL_MS);
+        }, AUTO_CYCLE_INITIAL_DELAY_MS);
 
         return () => {
             window.clearTimeout(startTimeout);
-            window.clearInterval(intervalId);
+            if (intervalId !== null) {
+                window.clearInterval(intervalId);
+            }
         };
     }, [isTouchMode, items.length]);
-
 
     return (
         <div className="relative w-full h-full overflow-hidden">
@@ -219,7 +226,9 @@ const MenuItem: React.FC<MenuItemComponentProps> = ({
             />
 
             <a
-                className="relative flex h-full w-full items-center justify-center px-6 cursor-pointer uppercase no-underline font-bold text-carbone text-[2.6vh] sm:text-[3vh] md:text-[3.5vh] transition-colors duration-500 group-hover:text-rame-sabbia group-focus-within:text-rame-sabbia focus:text-rame-sabbia focus-visible:text-rame-sabbia"
+                className={`relative flex h-full w-full items-center justify-center px-6 cursor-pointer uppercase no-underline font-bold text-carbone text-[2.6vh] sm:text-[3vh] md:text-[3.5vh] transition-colors duration-500 group-hover:text-rame-sabbia group-focus-within:text-rame-sabbia focus:text-rame-sabbia focus-visible:text-rame-sabbia ${
+                    isTouchMode && isActive ? 'text-rame-sabbia' : ''
+                }`}
                 href={link}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}

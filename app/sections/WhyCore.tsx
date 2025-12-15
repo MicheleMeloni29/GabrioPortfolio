@@ -69,7 +69,7 @@ export default function WhyCoreSection() {
         >
             <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
                 <div className="pointer-events-none absolute inset-x-0 top-10 z-10 mx-auto w-full max-w-4xl px-6 text-center">
-                    <h1 className="text-4xl font-bold uppercase sm:text-5xl md:text-6xl lg:text-7xl">
+                    <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">
                         Perche' Core
                     </h1>
                 </div>
