@@ -109,7 +109,7 @@ export default function Hero() {
             className="relative snap-start flex min-h-screen w-full shrink-0 flex-col overflow-hidden bg-nero px-4 py-20 text-white sm:px-6 lg:px-12 lg:py-20 md:py-8"
         >
             <div className="flex h-full w-full flex-col items-center justify-center gap-10 text-center sm:gap-12 md:gap-10">
-                <div className="pointer-events-none select-none">
+                <div className="pointer-events-none select-none [@media(min-width:1440px)_and_(max-width:1599px)]:-mt-6">
                     <Image
                         src="/Core_Icon.png"
                         alt="Core icon beating"
@@ -120,7 +120,7 @@ export default function Hero() {
                     />
                 </div>
 
-                <div className="flex w-full max-w-4xl flex-col items-center gap-2 px-2 sm:gap-3 md:gap-4 sm:px-4 lg:gap-0 lg:-mt-5">
+                <div className="flex w-full max-w-4xl flex-col items-center gap-2 px-2 sm:gap-3 md:gap-4 sm:px-4 lg:gap-0 lg:-mt-5 xl:mt-4">
                     <div className="flex w-full justify-center text-center min-h-[2.75rem] sm:min-h-[3.25rem] md:min-h-[4rem] lg:min-h-[-1rem]">
                         {showFirstSplit ? (
                             <SplitText

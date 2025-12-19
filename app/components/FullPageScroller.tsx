@@ -36,6 +36,7 @@ export default function FullPageScroller({
     const currentIndexRef = useRef(0);
     const isAnimatingRef = useRef(false);
     const wheelDeltaRef = useRef(0);
+    const wheelDirectionRef = useRef<1 | -1 | 0>(0);
     const animationTimeoutRef = useRef<number | null>(null);
     const touchStartYRef = useRef(0);
     const touchLastYRef = useRef(0);
@@ -80,6 +81,8 @@ export default function FullPageScroller({
             if (isAnimatingRef.current) return;
             const nextIndex = currentIndexRef.current + direction;
             if (nextIndex < 0 || nextIndex >= sectionsRef.current.length) return;
+            wheelDeltaRef.current = 0;
+            wheelDirectionRef.current = 0;
             scrollToIndex(nextIndex);
         };
 
@@ -146,15 +149,22 @@ export default function FullPageScroller({
             }
 
             event.preventDefault();
-
-            wheelDeltaRef.current += deltaY;
-            if (Math.abs(wheelDeltaRef.current) < WHEEL_THRESHOLD) {
+            if (direction === 0) {
                 return;
             }
 
-            const movementDirection: 1 | -1 = wheelDeltaRef.current > 0 ? 1 : -1;
+            if (wheelDirectionRef.current !== direction) {
+                wheelDirectionRef.current = direction;
+                wheelDeltaRef.current = 0;
+            }
+
+            wheelDeltaRef.current += Math.abs(deltaY);
+            if (wheelDeltaRef.current < WHEEL_THRESHOLD) {
+                return;
+            }
+
             wheelDeltaRef.current = 0;
-            moveToDirection(movementDirection);
+            moveToDirection(direction);
         };
 
         const onTouchStart = (event: TouchEvent) => {

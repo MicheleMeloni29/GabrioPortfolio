@@ -8,8 +8,8 @@ const CONTACT_INFO = {
     instagram: "https://www.instagram.com/corestudio_design/",
     whatsapp: "https://wa.me/393473728852",
     whatsappLabel: "+39 347 372 8852",
-    mail: "mailto:michele.meloni2@icloud.com?subject=Nuovo%20progetto",
-    mailLabel: "michele.meloni2@icloud.com",
+    mail: "mailto:gabriele.serra@yahoo.it?subject=Nuovo%20progetto",
+    mailLabel: "gabriele.serra@yahoo.it",
 };
 
 const CONTACT_METHODS = [
