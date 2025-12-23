@@ -2,15 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const montserratRegular = Montserrat({
   variable: "--font-montserrat-regular",
@@ -28,6 +19,10 @@ export const metadata: Metadata = {
   title: "Core Studio - Graphic Designer",
   description:
     "Portfolio e landing page per presentare servizi di branding, art direction ed editorial design di Gabrio Rinaldi.",
+  icons: {
+    icon: "/image/Core_Icon.png",
+    shortcut: "/image/Core_Icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -38,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="it" className="max-w-full overflow-x-hidden overscroll-x-none">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserratRegular.variable} ${montserratBold.variable} bg-[#030303] text-white antialiased overflow-x-clip`}
+        className={`${montserratRegular.variable} ${montserratBold.variable} bg-[#030303] text-white antialiased overflow-x-clip`}
       >
         {children}
       </body>
