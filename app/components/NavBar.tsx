@@ -232,7 +232,7 @@ export default function NavBar() {
                 </div>
 
                 {showMobileLayout && isMenuOpen ? (
-                    <div className="absolute right-4 top-full mt-4 w-48 rounded-3xl bg-[rgba(13,13,13,0.85)] p-4 shadow-2xl md:hidden">
+                    <div className="absolute right-4 top-full mt-4 w-56 rounded-3xl bg-[rgba(13,13,13,0.85)] p-4 shadow-2xl">
                         <div className="flex flex-col gap-3 text-sm font-semibold">
                             {[...primarySections, contactSection]
                                 .filter(

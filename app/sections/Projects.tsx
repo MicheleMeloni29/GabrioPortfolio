@@ -234,7 +234,7 @@ export default function ProjectsSection() {
             onTouchCancel={cleanupTouchTracking}
             className="snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-4 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20 overflow-x-clip overscroll-x-none touch-pan-y"
         >
-            <div className="mx-auto flex w-full max-w-8xl flex-1 flex-col gap-6 sm:gap-8">
+            <div className="mx-auto flex w-full max-w-8xl flex-1 flex-col gap-6 sm:gap-8 mt-12 xl:mt-2">
                 {/* Center the carousel area */}
                 <div className="flex w-full flex-1 flex-col items-center gap-2 sm:gap-3 lg:gap-2 lg:justify-between">
                     <div

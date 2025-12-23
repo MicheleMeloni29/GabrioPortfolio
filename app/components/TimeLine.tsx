@@ -21,7 +21,7 @@ export default function Timeline({
             aria-labelledby={`${id}-title`}
         >
             <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pt-8 sm:pt-10 pb-12 sm:pb-16">
-                <div className="space-y-12 sm:space-y-16 md:space-y-20 text-center">
+                <div className="space-y-30 sm:space-y-26 md:space-y-30 text-center">
                     {timelineData.map((item, idx) => (
                         <motion.div
                             key={`${item.title}-${idx}`}

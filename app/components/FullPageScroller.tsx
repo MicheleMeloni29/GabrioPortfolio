@@ -17,6 +17,13 @@
 
 import { ReactNode, useEffect, useRef } from "react";
 
+import {
+    SECTION_STAGE_EVENT,
+    ScrollDirection,
+    StageChangeDetail,
+    clampStageIndex,
+} from "@/lib/scrollStages";
+
 type FullPageScrollerProps = {
     children: ReactNode;
     className?: string;
@@ -26,6 +33,7 @@ const WHEEL_THRESHOLD = 40;
 const TOUCH_THRESHOLD = 45;
 const SCROLL_ANIMATION_MS = 900;
 const SCROLL_COOLDOWN_MS = 350;
+const STAGE_STEP_COOLDOWN_MS = 700;
 
 export default function FullPageScroller({
     children,
@@ -41,18 +49,81 @@ export default function FullPageScroller({
     const touchStartYRef = useRef(0);
     const touchLastYRef = useRef(0);
     const touchScrollContainerRef = useRef<HTMLElement | null>(null);
+    const stageStateRef = useRef<number[]>([]);
 
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
 
+        const getStageCount = (section?: HTMLElement | null) => {
+            if (!section) return 1;
+            const raw = Number(section.getAttribute("data-scroll-stages"));
+            if (!Number.isFinite(raw) || raw <= 0) return 1;
+            return Math.max(1, Math.floor(raw));
+        };
+
+        const dispatchStageChange = (
+            section: HTMLElement,
+            stageIndex: number,
+            direction: ScrollDirection
+        ) => {
+            const detail: StageChangeDetail = {
+                stageIndex,
+                maxStage: getStageCount(section),
+                direction,
+            };
+            section.dispatchEvent(new CustomEvent(SECTION_STAGE_EVENT, { detail }));
+        };
+
+        const setStageIndex = (
+            sectionIndex: number,
+            nextStage: number,
+            direction: ScrollDirection
+        ) => {
+            const section = sectionsRef.current[sectionIndex];
+            if (!section) return;
+            const maxStage = getStageCount(section);
+            const clamped = clampStageIndex(nextStage, maxStage);
+            stageStateRef.current[sectionIndex] = clamped;
+            section.setAttribute("data-scroll-stage-index", String(clamped));
+            dispatchStageChange(section, clamped, direction);
+        };
+
+        const syncSectionStages = () => {
+            const previous = stageStateRef.current;
+            stageStateRef.current = sectionsRef.current.map((section, index) => {
+                const maxStage = getStageCount(section);
+                const prevStage = typeof previous[index] === "number" ? previous[index] : 0;
+                const normalized = clampStageIndex(prevStage, maxStage);
+                section.setAttribute("data-scroll-stage-index", String(normalized));
+                return normalized;
+            });
+        };
+
         const updateSections = () => {
             sectionsRef.current = Array.from(container.children) as HTMLElement[];
+            syncSectionStages();
         };
 
         updateSections();
+        if (sectionsRef.current.length > 0) {
+            setStageIndex(
+                currentIndexRef.current,
+                stageStateRef.current[currentIndexRef.current] ?? 0,
+                0
+            );
+        }
 
-        const observer = new MutationObserver(updateSections);
+        const observer = new MutationObserver(() => {
+            updateSections();
+            if (sectionsRef.current.length > 0) {
+                setStageIndex(
+                    currentIndexRef.current,
+                    stageStateRef.current[currentIndexRef.current] ?? 0,
+                    0
+                );
+            }
+        });
         observer.observe(container, { childList: true });
 
         const clearAnimationTimeout = () => {
@@ -62,28 +133,61 @@ export default function FullPageScroller({
             }
         };
 
-        const scrollToIndex = (index: number) => {
-            const target = sectionsRef.current[index];
-            if (!target) return;
-
+        const startInteractionCooldown = (duration: number) => {
             isAnimatingRef.current = true;
-            target.scrollIntoView({ behavior: "smooth", block: "start" });
-
             clearAnimationTimeout();
             animationTimeoutRef.current = window.setTimeout(() => {
                 isAnimatingRef.current = false;
-            }, SCROLL_ANIMATION_MS + SCROLL_COOLDOWN_MS);
+            }, duration);
+        };
+
+        const tryHandleStageStep = (direction: 1 | -1) => {
+            const currentSection = sectionsRef.current[currentIndexRef.current];
+            if (!currentSection) return false;
+            const maxStage = getStageCount(currentSection);
+            if (maxStage <= 1) return false;
+            const currentStage = stageStateRef.current[currentIndexRef.current] ?? 0;
+            if (direction > 0 && currentStage < maxStage - 1) {
+                setStageIndex(currentIndexRef.current, currentStage + 1, direction);
+                startInteractionCooldown(STAGE_STEP_COOLDOWN_MS);
+                return true;
+            }
+            if (direction < 0 && currentStage > 0) {
+                setStageIndex(currentIndexRef.current, currentStage - 1, direction);
+                startInteractionCooldown(STAGE_STEP_COOLDOWN_MS);
+                return true;
+            }
+            return false;
+        };
+
+        const scrollToIndex = (index: number, direction: ScrollDirection) => {
+            const target = sectionsRef.current[index];
+            if (!target) return;
+
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+            startInteractionCooldown(SCROLL_ANIMATION_MS + SCROLL_COOLDOWN_MS);
 
             currentIndexRef.current = index;
+
+            const stageForEntry =
+                direction === 0
+                    ? stageStateRef.current[index] ?? 0
+                    : direction > 0
+                      ? 0
+                      : getStageCount(target) - 1;
+
+            setStageIndex(index, stageForEntry, direction);
         };
 
         const moveToDirection = (direction: 1 | -1) => {
             if (isAnimatingRef.current) return;
+            if (tryHandleStageStep(direction)) return;
             const nextIndex = currentIndexRef.current + direction;
             if (nextIndex < 0 || nextIndex >= sectionsRef.current.length) return;
             wheelDeltaRef.current = 0;
             wheelDirectionRef.current = 0;
-            scrollToIndex(nextIndex);
+            scrollToIndex(nextIndex, direction);
         };
 
         const getAllowScrollTarget = (target: HTMLElement | null) =>

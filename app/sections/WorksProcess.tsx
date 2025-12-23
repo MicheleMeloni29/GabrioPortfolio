@@ -5,7 +5,7 @@ export default function WorksProcess() {
         <section
             id="process"
             data-scroll-lock="#process-timeline-scroll"
-            className="snap-start flex min-h-screen w-full shrink-0 flex-col bg-nero px-6 py-12 text-rame-sabbia sm:px-12 lg:px-24"
+            className="snap-start flex min-h-screen w-full shrink-0 flex-col bg-nero px-6 py-14 text-rame-sabbia sm:px-12 lg:px-24"
         >
             <div className="mx-auto w-full max-w-5xl text-center pt-16 text-rame-sabbia">
                 <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">Come lavoro</h1>
