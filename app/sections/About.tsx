@@ -116,7 +116,7 @@ export default function AboutSection() {
                 <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">Chi sono</h1>
             </div>
 
-            <div className="relative mx-auto mt-4 flex w-full max-w-7xl flex-1 flex-col items-center overflow-hidden text-rame-sabbia/70 text-xl sm:mt-8 sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-5xl">
+            <div className="relative mx-auto mt-4 flex w-full max-w-7xl flex-1 flex-col items-center overflow-hidden text-rame-sabbia/70 text-xl sm:mt-8 sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={currentStage.id}
