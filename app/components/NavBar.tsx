@@ -129,7 +129,7 @@ export default function NavBar() {
                     <div className="flex w-full items-center justify-between">
                         <NavbarBrand className="h-8 shrink-0">
                             <Image
-                                src="/Core_logo.png"
+                                src="/images/Core_logo.png"
                                 alt="Core logo"
                                 width={240}
                                 height={65}
@@ -175,7 +175,7 @@ export default function NavBar() {
                 >
                     <NavbarBrand className="h-10 flex-shrink-0">
                         <Image
-                            src="/Core_logo.png"
+                            src="/images/Core_logo.png"
                             alt="Core logo"
                             width={320}
                             height={95}

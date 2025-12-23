@@ -111,7 +111,7 @@ export default function Hero() {
             <div className="flex h-full w-full flex-col items-center justify-center gap-10 text-center sm:gap-12 md:gap-10">
                 <div className="pointer-events-none select-none [@media(min-width:1440px)_and_(max-width:1599px)]:-mt-6">
                     <Image
-                        src="/Core_Icon.png"
+                        src="/images/Core_Icon.png"
                         alt="Core icon beating"
                         width={541}
                         height={541}

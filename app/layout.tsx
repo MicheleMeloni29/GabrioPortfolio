@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   description:
     "Portfolio e landing page per presentare servizi di branding, art direction ed editorial design di Gabrio Rinaldi.",
   icons: {
-    icon: "/image/Core_Icon.png",
-    shortcut: "/image/Core_Icon.png",
+    icon: "/images/Core_Icon.png",
+    shortcut: "/images/Core_Icon.png",
   },
 };
 

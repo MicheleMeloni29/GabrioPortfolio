@@ -76,7 +76,7 @@ export default function WhyCoreSection() {
 
                 <div className="pointer-events-none flex h-full w-full items-center justify-center opacity-20">
                     <Image
-                        src="/Core_Icon.png"
+                        src="/images/Core_Icon.png"
                         alt="Logo Core pulsante"
                         width={760}
                         height={760}
