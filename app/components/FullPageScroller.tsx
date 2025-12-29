@@ -282,7 +282,10 @@ export default function FullPageScroller({
 
         const onTouchMove = (event: TouchEvent) => {
             const container = touchScrollContainerRef.current;
-            if (!container) return;
+            if (!container) {
+                event.preventDefault();
+                return;
+            }
 
             const currentY = event.touches[0].clientY;
             const delta = touchLastYRef.current - currentY;

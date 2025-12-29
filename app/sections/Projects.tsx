@@ -237,7 +237,7 @@ export default function ProjectsSection() {
             onTouchMove={handleSectionTouchMove}
             onTouchEnd={cleanupTouchTracking}
             onTouchCancel={cleanupTouchTracking}
-            className="snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-4 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20 overflow-x-clip overscroll-x-none touch-pan-y"
+            className="snap-start flex h-screen w-full shrink-0 flex-col bg-carbone px-4 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20 overflow-x-clip overscroll-x-none touch-pan-y"
         >
             <div className="mx-auto flex w-full max-w-8xl flex-1 flex-col gap-6 sm:gap-8 mt-12 xl:mt-2 2xl:mt-14">
                 <div className="sr-only">
