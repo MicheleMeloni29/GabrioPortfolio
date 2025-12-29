@@ -5,13 +5,10 @@ import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import SplitText from "../components/SplitText";
-
-const FIRST_TEXT = "DAL CUORE";
-const SECOND_TEXT = "ALLA FORMA";
+import { useLanguage } from "../providers/LanguageProvider";
 
 const CHAR_DELAY = 80; // ms, come il delay di SplitText
 const SPLIT_DURATION = 0.6 * 1000; // 0.6s -> ms (duration di SplitText)
-const SUBTITLE_DURATION = 600; // ms, come motion del subtitle
 
 // Calcola durata totale di uno SplitText in ms
 const calcSplitDuration = (text: string) => {
@@ -21,6 +18,13 @@ const calcSplitDuration = (text: string) => {
 };
 
 export default function Hero() {
+    const { dictionary } = useLanguage();
+    const heroCopy = dictionary.hero;
+    const firstText = heroCopy.headlineFirst ?? "";
+    const secondText = heroCopy.headlineSecond ?? "";
+    const subtitleText = heroCopy.subtitle ?? "";
+    const logoAlt = heroCopy.logoAlt ?? "Hero logo";
+
     const [showFirstSplit, setShowFirstSplit] = useState(false);
     const [showSecondLine, setShowSecondLine] = useState(false);
     const [showSubtitle, setShowSubtitle] = useState(false);
@@ -44,8 +48,8 @@ export default function Hero() {
         resetStates();
 
         const initialDelay = 1500; // 2) dopo 2 secondi parte il primo SplitText
-        const firstSplitTime = calcSplitDuration(FIRST_TEXT);
-        const secondSplitTime = calcSplitDuration(SECOND_TEXT);
+        const firstSplitTime = calcSplitDuration(firstText);
+        const secondSplitTime = calcSplitDuration(secondText);
 
         const timers: number[] = [];
         timers.push(
@@ -67,7 +71,7 @@ export default function Hero() {
         );
 
         timersRef.current = timers;
-    }, [clearTimers, resetStates]);
+    }, [clearTimers, resetStates, firstText, secondText]);
 
     useEffect(() => {
         const node = sectionRef.current;
@@ -112,7 +116,7 @@ export default function Hero() {
                 <div className="pointer-events-none select-none [@media(min-width:1440px)_and_(max-width:1599px)]:-mt-6">
                     <Image
                         src="/images/Core_Icon.png"
-                        alt="Core icon beating"
+                        alt={logoAlt}
                         width={541}
                         height={541}
                         priority
@@ -124,7 +128,7 @@ export default function Hero() {
                     <div className="flex w-full justify-center text-center min-h-[2.75rem] sm:min-h-[3.25rem] md:min-h-[4rem] lg:min-h-[-1rem]">
                         {showFirstSplit ? (
                             <SplitText
-                                text={FIRST_TEXT}
+                                text={firstText}
                                 className="m-0 font-black uppercase tracking-[0.18em] text-rame-sabbia leading-tight
                                             text-[clamp(1.8rem,8vw,2.4rem)]
                                             sm:text-[clamp(2.6rem,6vw,3.2rem)]
@@ -149,7 +153,7 @@ export default function Hero() {
                     <div className="flex w-full justify-center text-center min-h-[2.75rem] sm:min-h-[3.25rem] md:min-h-[4rem] lg:min-h-[1rem] ">
                         {showSecondLine ? (
                             <SplitText
-                                text={SECOND_TEXT}
+                                text={secondText}
                                 className="m-0 font-black uppercase tracking-[0.18em] text-rame-sabbia leading-tight
                                             text-[clamp(1.8rem,8vw,2.4rem)]
                                             sm:text-[clamp(2.6rem,6vw,3.2rem)]
@@ -180,7 +184,7 @@ export default function Hero() {
                             transition={{ duration: 0.6, ease: "easeIn" }}
                             className="text-xs font-semibold uppercase tracking-[0.32em] text-bianco sm:text-sm md:text-base"
                         >
-                            DOVE LA VISIONE PRENDE FORMA
+                            {subtitleText}
                         </motion.p>
                     ) : null}
                 </div>

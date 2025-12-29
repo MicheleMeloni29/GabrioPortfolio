@@ -3,6 +3,7 @@
 import Image from "next/image";
 import CircularText from "../components/CircularText";
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "../providers/LanguageProvider";
 
 type CircleSizes = {
     outer: number;
@@ -23,6 +24,12 @@ export default function WhyCoreSection() {
     const hasIntersectedRef = useRef(false);
     const [replayKey, setReplayKey] = useState(0);
     const [circleSizes, setCircleSizes] = useState<CircleSizes>(INITIAL_CIRCLE_SIZES);
+    const { dictionary } = useLanguage();
+    const whyCopy = dictionary.whyCore ?? {};
+    const sectionTitle = whyCopy.title ?? "Perché Core";
+    const outerRingText = whyCopy.outerRingText ?? " OGNI BRAND HA UN CUORE -";
+    const innerRingText = whyCopy.innerRingText ?? " IO GLI DO FORMA -";
+    const logoAlt = whyCopy.logoAlt ?? "Logo Core pulsante";
 
     useEffect(() => {
         const node = sectionRef.current;
@@ -70,14 +77,14 @@ export default function WhyCoreSection() {
             <div className="relative flex h-full w-full items-center justify-center overflow-hidden">
                 <div className="pointer-events-none absolute inset-x-0 top-10 z-10 mx-auto w-full max-w-4xl px-6 text-center">
                     <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">
-                        Perche' Core
+                        {sectionTitle}
                     </h1>
                 </div>
 
                 <div className="pointer-events-none flex h-full w-full items-center justify-center opacity-20">
                     <Image
                         src="/images/Core_Icon.png"
-                        alt="Logo Core pulsante"
+                        alt={logoAlt}
                         width={760}
                         height={760}
                         priority
@@ -89,7 +96,7 @@ export default function WhyCoreSection() {
                     <div className="relative flex items-center justify-center">
                         <CircularText
                             key={`outer-${replayKey}`}
-                            text=" OGNI BRAND HA UN CUORE -"
+                            text={outerRingText}
                             onHover="speedUp"
                             spinDuration={50}
                             size={circleSizes.outer}
@@ -98,7 +105,7 @@ export default function WhyCoreSection() {
                         <div className="absolute inset-0 flex items-center justify-center">
                             <CircularText
                                 key={`inner-${replayKey}`}
-                                text=" IO GLI DO FORMA -"
+                                text={innerRingText}
                                 onHover="speedUp"
                                 spinDuration={40}
                                 size={circleSizes.inner}

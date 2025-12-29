@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Core Studio - Graphic Designer",
+    "description": "Portfolio e landing page per presentare servizi di branding, art direction ed editorial design."
+  },
+  "navigation": {
+    "logoAlt": "Logo Core",
+    "sections": {
+      "hero": "Intro",
+      "about": "Chi sono",
+      "services": "Servizi",
+      "process": "Processo",
+      "projects": "Progetti",
+      "whyCore": "Perché Core",
+      "contacts": "Contatti"
+    },
+    "cta": {
+      "label": "Iniziamo ora!"
+    },
+    "menu": {
+      "toggleAria": "Apri menu"
+    },
+    "languageToggle": {
+      "ariaLabel": "Cambia lingua"
+    }
+  },
+  "hero": {
+    "logoAlt": "Icona Core pulsante",
+    "headlineFirst": "DAL CUORE",
+    "headlineSecond": "ALLA FORMA",
+    "subtitle": "DOVE LA VISIONE PRENDE FORMA"
+  },
+  "about": {
+    "title": "Chi sono",
+    "stages": [
+      {
+        "id": "first",
+        "text": "CORE STUDIO nasce dall'idea che ogni brand abbia un cuore: un nucleo, un centro, un significato profondo. Il mio lavoro parte sempre da lì: dalla ricerca dell'essenza, di ciò che un brand è davvero."
+      },
+      {
+        "id": "second",
+        "text": "Trasformo questa essenza in identità visive, strategie e una presenza riconoscibile. Do forma alle visioni dei miei clienti con coerenza e carattere, facendo emergere valori, stile e personalità attraverso il design."
+      },
+      {
+        "id": "third",
+        "text": "Creo sistemi visivi chiari, memorabili e premium, pensati per brand locali e imprenditori che vogliono distinguersi nel mercato italiano e internazionale. Dalla Sardegna al mondo, seguo il design ovunque mi porti."
+      }
+    ]
+  },
+  "services": {
+    "title": "Cosa faccio",
+    "items": [
+      {
+        "id": "brand-identity",
+        "label": "Brand Identity",
+        "details": [
+          "Identità visive complete: logo, palette, tipografia, sistema visivo e linee guida. Progettate per essere riconoscibili, coerenti e professionali."
+        ]
+      },
+      {
+        "id": "visual-social",
+        "label": "Visual & Social Design",
+        "details": [
+          "Template grafici, format visivi, design per post e contenuti. Linea estetica chiara e professionale per attività, eventi e progetti digitali."
+        ]
+      },
+      {
+        "id": "local-materials",
+        "label": "Materiali per attività locali",
+        "details": [
+          "Menu, biglietti da visita, locandine, vetrofanie e materiali stampati. File pronti per la stampa e applicazioni reali."
+        ]
+      },
+      {
+        "id": "rebranding",
+        "label": "Rebranding",
+        "details": [
+          "Restyling e modernizzazione dell'identità per attività già avviate. Pulizia, ordine e coerenza per una percezione più forte."
+        ]
+      }
+    ]
+  },
+  "process": {
+    "title": "Come lavoro",
+    "timeline": {
+      "items": [
+        {
+          "step": "I",
+          "title": "Analisi del Core",
+          "description": "Studio dell'essenza del brand, valori, identità, target e concorrenza."
+        },
+        {
+          "step": "II",
+          "title": "Concept & Brainstorming",
+          "description": "Moodboard, ricerca visiva, idee e primissimi schizzi a mano."
+        },
+        {
+          "step": "III",
+          "title": "Proposta & Bozze",
+          "description": "1-2 direzioni di logo e identità con palette, layout e stile."
+        },
+        {
+          "step": "IV",
+          "title": "Sistema di Design",
+          "description": "Costruzione del linguaggio visivo: tipografie, moduli, pattern, icone, griglie."
+        },
+        {
+          "step": "V",
+          "title": "Applicazioni Reali",
+          "description": "Materiali concreti: social, stampa, mockup, presentazioni. File finali pronti per utilizzo professionale."
+        }
+      ]
+    }
+  },
+  "projects": {
+    "heading": "Progetti",
+    "accessibility": {
+      "list": "Progetti in evidenza",
+      "indicator": "Mostra il progetto {{title}}"
+    },
+    "items": [
+      {
+        "id": "reverse-pub",
+        "title": "Reverse Pub",
+        "description": "Brand visual, flyer, palette, stile comunicazione."
+      },
+      {
+        "id": "pescheria-fresco",
+        "title": "Pescheria Fresco",
+        "description": "Identità e social kit. Biglietti, layout feed, sito base."
+      },
+      {
+        "id": "elite-five-cup",
+        "title": "Elite Five Cup",
+        "description": "Visual sportivo, locandine, identità evento, social branding."
+      },
+      {
+        "id": "ricevitoria-superenalotto",
+        "title": "Ricevitoria Superenalotto",
+        "description": "Comunicazione locale, display, materiali stampati."
+      },
+      {
+        "id": "v-miglio-sestu",
+        "title": "V Miglio Sestu",
+        "description": "Comunicazione locale, display, materiali stampati."
+      }
+    ]
+  },
+  "whyCore": {
+    "title": "Perché Core",
+    "outerRingText": " OGNI BRAND HA UN CUORE -",
+    "innerRingText": " IO GLI DO FORMA -",
+    "logoAlt": "Logo Core pulsante"
+  },
+  "contact": {
+    "title": "Parliamone",
+    "intro": [
+      "Pronto a dare forma al cuore del tuo brand?",
+      "Scrivimi per iniziare un nuovo progetto."
+    ],
+    "mailSubject": "Nuovo progetto",
+    "methods": [
+      {
+        "id": "instagram",
+        "label": "@corestudio_design",
+        "ariaLabel": "Apri il profilo Instagram"
+      },
+      {
+        "id": "whatsapp",
+        "label": "WhatsApp: +39 347 372 8852",
+        "ariaLabel": "Apri la chat WhatsApp"
+      },
+      {
+        "id": "mail",
+        "label": "gabriele.serra@yahoo.it",
+        "ariaLabel": "Invia una email"
+      }
+    ]
+  }
+}

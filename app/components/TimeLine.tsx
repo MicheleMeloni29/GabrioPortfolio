@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from "framer-motion";
-import { ComponentPropsWithoutRef } from "react";
-import { timelineData } from "../data/timelineStructure";
+import { ComponentPropsWithoutRef, useMemo } from "react";
+
+import { useLanguage } from "../providers/LanguageProvider";
 
 type TimelineProps = ComponentPropsWithoutRef<"section"> & {
     heading?: string;
@@ -13,6 +14,9 @@ export default function Timeline({
     id = "timeline",
     ...sectionProps
 }: TimelineProps) {
+    const { dictionary } = useLanguage();
+    const timelineItems = useMemo(() => dictionary.process?.timeline?.items ?? [], [dictionary]);
+
     return (
         <section
             id={id}
@@ -22,7 +26,7 @@ export default function Timeline({
         >
             <div className="relative w-full max-w-4xl mx-auto px-4 sm:px-6 md:px-8 pt-8 sm:pt-10 pb-12 sm:pb-16">
                 <div className="space-y-30 sm:space-y-26 md:space-y-30 text-center">
-                    {timelineData.map((item, idx) => (
+                    {timelineItems.map((item, idx) => (
                         <motion.div
                             key={`${item.title}-${idx}`}
                             initial={{ opacity: 0, y: 18 }}

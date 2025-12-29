@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Core Studio - Graphic Designer",
+    "description": "Portfolio y landing page para presentar los servicios de branding, direcci?n de arte y dise?o editorial de Gabrio Rinaldi."
+  },
+  "navigation": {
+    "logoAlt": "Logotipo de Core",
+    "sections": {
+      "hero": "Hero",
+      "about": "Sobre mí",
+      "services": "Servicios",
+      "process": "Proceso",
+      "projects": "Proyectos",
+      "whyCore": "Por qué Core",
+      "contacts": "Contacto"
+    },
+    "cta": {
+      "label": "Empieza ahora!"
+    },
+    "menu": {
+      "toggleAria": "Abrir men?"
+    },
+    "languageToggle": {
+      "ariaLabel": "Cambiar idioma"
+    }
+  },
+  "hero": {
+    "logoAlt": "Icono de Core palpitando",
+    "headlineFirst": "DEL CORAZÓN",
+    "headlineSecond": "A LA FORMA",
+    "subtitle": "DONDE LA VISIÓN COBRA FORMA"
+  },
+  "about": {
+    "title": "Quién soy",
+    "stages": [
+      {
+        "id": "first",
+        "text": "CORE STUDIO nació de la idea de que cada marca tiene un corazón: un núcleo, un centro, un significado más profundo. Mi trabajo siempre comienza ahí: buscando la esencia, lo que realmente es una marca."
+      },
+      {
+        "id": "second",
+        "text": "Convierto esa esencia en identidades visuales, estrategias y una presencia reconocible. Doy forma a las visiones de mis clientes con coherencia y carácter, resaltando los valores, el estilo y la personalidad a través del diseño."
+      },
+      {
+        "id": "third",
+        "text": "Creo sistemas visuales claros, memorables y de alta calidad diseñados para marcas locales y emprendedores que desean destacar en los mercados italianos e internacionales. Desde Cerdeña al mundo, sigo el diseño allá donde me lleve."
+      }
+    ]
+  },
+  "services": {
+    "title": "Qué hago",
+    "items": [
+      {
+        "id": "brand-identity",
+        "label": "Brand Identity",
+        "details": [
+          "Identidades visuales completas: logotipo, paleta de colores, tipografía, sistema visual y directrices. Diseñadas para ser reconocibles, coherentes y profesionales."
+        ]
+      },
+      {
+        "id": "visual-social",
+        "label": "Visual & Social Design",
+        "details": [
+          "Plantillas gráficas, formatos visuales, diseño para publicaciones y contenido. Una estética clara y profesional para empresas, eventos y proyectos digitales."
+        ]
+      },
+      {
+        "id": "local-materials",
+        "label": "Materiales para negocios locales",
+        "details": [
+          "Menús, tarjetas de visita, carteles, adhesivos para ventanas y materiales impresos. Archivos listos para imprimir y aplicaciones en el mundo real."
+        ]
+      },
+      {
+        "id": "rebranding",
+        "label": "Rebranding",
+        "details": [
+          "Renovación y modernización de identidades consolidadas. Limpieza, orden y coherencia para una percepción más sólida."
+        ]
+      }
+    ]
+  },
+  "process": {
+    "title": "Cómo trabajo",
+    "timeline": {
+      "items": [
+        {
+          "step": "I",
+          "title": "Análisis del Core",
+          "description": "Estudio de la esencia, los valores, la identidad, el público objetivo y los competidores de la marca."
+        },
+        {
+          "step": "II",
+          "title": "Concept & Brainstorming",
+          "description": "Tableros de inspiración, investigación visual, ideas y los primeros bocetos a mano."
+        },
+        {
+          "step": "III",
+          "title": "Propuesta & Borrador",
+          "description": "1-2 directrices sobre el logotipo y la identidad con paleta de colores, diseño y estilo."
+        },
+        {
+          "step": "IV",
+          "title": "Sistema de diseño",
+          "description": "Creación del lenguaje visual: tipografías, módulos, patrones, iconos, cuadrículas."
+        },
+        {
+          "step": "V",
+          "title": "Aplicaciones Reales",
+          "description": "Materiales concretos: sociales, impresos, maquetas, presentaciones. Archivos finales listos para uso profesional."
+        }
+      ]
+    }
+  },
+  "projects": {
+    "heading": "Proyectos",
+    "accessibility": {
+      "list": "Proyectos destacados",
+      "indicator": "Mostrar el proyecto {{title}}"
+    },
+    "items": [
+      {
+        "id": "reverse-pub",
+        "title": "Reverse Pub",
+        "description": "Identidad visual, folleto, paleta de colores, estilo de comunicación."
+      },
+      {
+        "id": "pescheria-fresco",
+        "title": "Pescheria Fresco",
+        "description": "Identidad y kit social. Tarjetas, layout del feed, sitio web básico."
+      },
+      {
+        "id": "elite-five-cup",
+        "title": "Elite Five Cup",
+        "description": "Imágenes inspiradas en el deporte, carteles, identidad de eventos, branding social."
+      },
+      {
+        "id": "ricevitoria-superenalotto",
+        "title": "Ricevitoria Superenalotto",
+        "description": "Comunicación local, displays, materiales impresos."
+      },
+      {
+        "id": "v-miglio-sestu",
+        "title": "V Miglio Sestu",
+        "description": "Comunicación local, displays, materiales impresos."
+      }
+    ]
+  },
+  "whyCore": {
+    "title": "Por qué Core",
+    "outerRingText": " CADA MARCA TIENE UN CORAZÓN  -",
+    "innerRingText": " YO LE DOY FORMA -",
+    "logoAlt": "Logotipo de Core palpitando"
+  },
+  "contact": {
+    "title": "Hablemos",
+    "intro": [
+      "Listo para dar forma al corazón de tu marca?",
+      "Escríbeme para empezar un nuevo proyecto."
+    ],
+    "mailSubject": "Nuevo proyecto",
+    "methods": [
+      {
+        "id": "instagram",
+        "label": "@corestudio_design",
+        "ariaLabel": "Abrir el perfil de Instagram"
+      },
+      {
+        "id": "whatsapp",
+        "label": "WhatsApp: +39 347 372 8852",
+        "ariaLabel": "Abrir el chat de WhatsApp"
+      },
+      {
+        "id": "mail",
+        "label": "gabriele.serra@yahoo.it",
+        "ariaLabel": "Enviar un correo"
+      }
+    ]
+  }
+}

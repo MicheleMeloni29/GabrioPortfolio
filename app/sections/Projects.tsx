@@ -1,32 +1,55 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { TouchEvent, WheelEvent as ReactWheelEvent } from "react";
 import { projectsData } from "../data/projects";
+import { useLanguage } from "../providers/LanguageProvider";
 
 const LOOP_MULTIPLIER = 5;
 const MIDDLE_LOOP_INDEX = Math.floor(LOOP_MULTIPLIER / 2);
-const projectsCount = projectsData.length;
 
-const infiniteProjects = Array.from({ length: LOOP_MULTIPLIER }, (_, loopIndex) =>
-    projectsData.map((project) => ({ project, loopIndex }))
-).flat();
-
+const formatIndicator = (template: string, title: string) =>
+    template.replace(/\{\{\s*title\s*\}\}/g, title);
 
 export default function ProjectsSection() {
+    const { dictionary } = useLanguage();
+    const projectsCopy = dictionary.projects;
+
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const segmentWidthRef = useRef(0);
     const scrollIndicatorFrameRef = useRef<number | null>(null);
     const activeProjectIndexRef = useRef(0);
     const [activeProjectIndex, setActiveProjectIndex] = useState(0);
 
-    // Keep your touch tracking (unchanged)
     const externalTouchMapRef = useRef<Map<number, { startX: number; startY: number }>>(new Map());
-
-    // Hover pause for auto-scroll
     const isHoveringRef = useRef(false);
 
-    // Wheel handler (unchanged)
+    const localizedProjects = useMemo(() => {
+        const items = projectsCopy?.items ?? [];
+        return projectsData.map((project) => {
+            const override = items.find((item) => item?.id === project.id);
+            return {
+                ...project,
+                title: override?.title ?? project.title,
+                description: override?.description ?? project.description,
+            };
+        });
+    }, [projectsCopy]);
+
+    const projectsCount = localizedProjects.length;
+
+    const infiniteProjects = useMemo(
+        () =>
+            Array.from({ length: LOOP_MULTIPLIER }, (_, loopIndex) =>
+                localizedProjects.map((project) => ({ project, loopIndex }))
+            ).flat(),
+        [localizedProjects]
+    );
+
+    const listLabel = projectsCopy?.accessibility?.list ?? "Featured projects";
+    const indicatorTemplate = projectsCopy?.accessibility?.indicator ?? "Show project {{title}}";
+    const projectsHeading = projectsCopy?.heading ?? "Projects";
+
     const handleCarouselWheel = (event: ReactWheelEvent<HTMLDivElement>) => {
         const container = scrollContainerRef.current;
         if (!container) return;
@@ -46,10 +69,9 @@ export default function ProjectsSection() {
         }
     };
 
-    // Infinite loop scroll boundaries (unchanged logic)
     useEffect(() => {
         const container = scrollContainerRef.current;
-        if (!container) return;
+        if (!container || !projectsCount) return;
 
         let segmentWidth = 0;
         let frameId: number | null = null;
@@ -58,10 +80,8 @@ export default function ProjectsSection() {
             segmentWidth = container.scrollWidth / LOOP_MULTIPLIER;
             segmentWidthRef.current = segmentWidth;
             if (segmentWidth > 0) {
-                const perProjectWidth =
-                    projectsCount > 0 ? segmentWidth / projectsCount : 0;
-                const offset =
-                    perProjectWidth * activeProjectIndexRef.current || 0;
+                const perProjectWidth = projectsCount > 0 ? segmentWidth / projectsCount : 0;
+                const offset = perProjectWidth * activeProjectIndexRef.current || 0;
                 container.scrollLeft = segmentWidth * MIDDLE_LOOP_INDEX + offset;
             }
         };
@@ -101,9 +121,8 @@ export default function ProjectsSection() {
             container.removeEventListener("scroll", handleScroll);
             window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [projectsCount]);
 
-    // Prevent page horizontal scroll (unchanged)
     useEffect(() => {
         if (typeof window === "undefined") return;
 
@@ -121,23 +140,18 @@ export default function ProjectsSection() {
 
     useEffect(() => {
         const container = scrollContainerRef.current;
-        if (!container) return;
+        if (!container || !projectsCount) return;
 
         const updateActiveIndex = () => {
             scrollIndicatorFrameRef.current = null;
-            const segmentWidth =
-                segmentWidthRef.current ||
-                container.scrollWidth / LOOP_MULTIPLIER;
+            const segmentWidth = segmentWidthRef.current || container.scrollWidth / LOOP_MULTIPLIER;
             if (!segmentWidth || !projectsCount) return;
 
             const perProjectWidth = segmentWidth / projectsCount;
             if (!perProjectWidth) return;
 
-            const normalized =
-                ((container.scrollLeft % segmentWidth) + segmentWidth) %
-                segmentWidth;
-            const nextIndex =
-                Math.round(normalized / perProjectWidth) % projectsCount;
+            const normalized = ((container.scrollLeft % segmentWidth) + segmentWidth) % segmentWidth;
+            const nextIndex = Math.round(normalized / perProjectWidth) % projectsCount;
 
             if (nextIndex !== activeProjectIndexRef.current) {
                 activeProjectIndexRef.current = nextIndex;
@@ -147,18 +161,14 @@ export default function ProjectsSection() {
 
         const handleScroll = () => {
             if (scrollIndicatorFrameRef.current !== null) return;
-            scrollIndicatorFrameRef.current = requestAnimationFrame(
-                updateActiveIndex
-            );
+            scrollIndicatorFrameRef.current = requestAnimationFrame(updateActiveIndex);
         };
 
         container.addEventListener("scroll", handleScroll, { passive: true });
         updateActiveIndex();
 
         const resizeObserver =
-            typeof ResizeObserver !== "undefined"
-                ? new ResizeObserver(updateActiveIndex)
-                : null;
+            typeof ResizeObserver !== "undefined" ? new ResizeObserver(updateActiveIndex) : null;
         resizeObserver?.observe(container);
 
         return () => {
@@ -168,26 +178,22 @@ export default function ProjectsSection() {
             }
             resizeObserver?.disconnect();
         };
-    }, []);
+    }, [projectsCount]);
 
     const scrollToProject = (index: number) => {
         const container = scrollContainerRef.current;
         if (!container || !projectsCount) return;
 
-        const segmentWidth =
-            segmentWidthRef.current ||
-            container.scrollWidth / LOOP_MULTIPLIER;
+        const segmentWidth = segmentWidthRef.current || container.scrollWidth / LOOP_MULTIPLIER;
         if (!segmentWidth) return;
 
         const perProjectWidth = segmentWidth / projectsCount;
         if (!perProjectWidth) return;
 
-        const target =
-            segmentWidth * MIDDLE_LOOP_INDEX + perProjectWidth * index;
+        const target = segmentWidth * MIDDLE_LOOP_INDEX + perProjectWidth * index;
         container.scrollTo({ left: target, behavior: "smooth" });
     };
 
-    // Touch helpers (unchanged)
     const isTouchInsideCarousel = (target: EventTarget | null) => {
         const carousel = scrollContainerRef.current;
         return !!(carousel && target instanceof Node && carousel.contains(target));
@@ -211,7 +217,6 @@ export default function ProjectsSection() {
             const deltaX = Math.abs(touch.clientX - tracked.startX);
             const deltaY = Math.abs(touch.clientY - tracked.startY);
 
-            // Block horizontal swipe on the page (outside carousel)
             if (deltaX > deltaY) {
                 event.preventDefault();
                 return;
@@ -234,14 +239,16 @@ export default function ProjectsSection() {
             onTouchCancel={cleanupTouchTracking}
             className="snap-start flex h-screen w-full shrink-0 flex-col bg-nero px-4 py-12 text-bianco sm:px-10 sm:py-16 lg:px-16 lg:py-20 overflow-x-clip overscroll-x-none touch-pan-y"
         >
-            <div className="mx-auto flex w-full max-w-8xl flex-1 flex-col gap-6 sm:gap-8 mt-12 xl:mt-2">
-                {/* Center the carousel area */}
+            <div className="mx-auto flex w-full max-w-8xl flex-1 flex-col gap-6 sm:gap-8 mt-12 xl:mt-2 2xl:mt-14">
+                <div className="sr-only">
+                    <h2>{projectsHeading}</h2>
+                </div>
                 <div className="flex w-full flex-1 flex-col items-center gap-2 sm:gap-3 lg:gap-2 lg:justify-between">
                     <div
                         data-allow-scroll="true"
                         ref={scrollContainerRef}
                         role="list"
-                        aria-label="Progetti in evidenza"
+                        aria-label={listLabel}
                         style={{ touchAction: "pan-x" }}
                         onWheel={handleCarouselWheel}
                         onMouseEnter={() => {
@@ -307,13 +314,14 @@ export default function ProjectsSection() {
                         className="mt-2 flex w-full items-center justify-center gap-2 pb-2 sm:mt-2 sm:gap-3 sm:pb-2 lg:mt-0"
                         style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))" }}
                     >
-                        {projectsData.map((project, index) => {
+                        {localizedProjects.map((project, index) => {
                             const isActive = index === activeProjectIndex;
+                            const ariaLabel = formatIndicator(indicatorTemplate, project.title);
                             return (
                                 <button
                                     key={project.id}
                                     type="button"
-                                    aria-label={`Mostra il progetto ${project.title}`}
+                                    aria-label={ariaLabel}
                                     onClick={() => scrollToProject(index)}
                                     className={`h-2 rounded-full transition-all duration-200 ${
                                         isActive

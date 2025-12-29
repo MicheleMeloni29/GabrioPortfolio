@@ -9,13 +9,7 @@ import {
     StageChangeDetail,
     clampStageIndex,
 } from "@/lib/scrollStages";
-
-const FIRST_TEXT =
-    "CORE STUDIO nasce dall'idea che ogni brand abbia un cuore: un nucleo, un centro, un significato profondo. Il mio lavoro parte sempre da là: dalla ricerca dell'essenza, di ciò che un brand è davvero";
-const SECOND_TEXT =
-    "Trasformo questa essenza in identità visive, strategie e una presenza riconoscibile. Do forma alle visioni dei miei clienti con coerenza e carattere, facendo emergere valori, stile e personalità attraverso il design.";
-const THIRD_TEXT =
-    "Creo sistemi visivi chiari, memorabili e premium, pensati per brand locali e imprenditori che vogliono distinguersi nel mercato italiano e internazionale. Dalla Sardegna al mondo, seguo il design ovunque mi porti.";
+import { useLanguage } from "../providers/LanguageProvider";
 
 type StageConfig = {
     id: string;
@@ -27,10 +21,9 @@ type StageConfig = {
     widthClass: string;
 };
 
-const STAGE_CONFIGS: StageConfig[] = [
+const STAGE_LAYOUTS: Omit<StageConfig, "text">[] = [
     {
         id: "first",
-        text: FIRST_TEXT,
         enterFrom: "-35%",
         verticalPosition: "top",
         horizontalClass: "justify-start",
@@ -39,7 +32,6 @@ const STAGE_CONFIGS: StageConfig[] = [
     },
     {
         id: "second",
-        text: SECOND_TEXT,
         enterFrom: "0%",
         verticalPosition: "center",
         horizontalClass: "justify-center",
@@ -48,7 +40,6 @@ const STAGE_CONFIGS: StageConfig[] = [
     },
     {
         id: "third",
-        text: THIRD_TEXT,
         enterFrom: "35%",
         verticalPosition: "bottom",
         horizontalClass: "justify-end",
@@ -56,11 +47,35 @@ const STAGE_CONFIGS: StageConfig[] = [
         widthClass: "w-full max-w-3xl md:max-w-[55%]",
     },
 ];
+const STAGE_COUNT = STAGE_LAYOUTS.length;
 
 export default function AboutSection() {
     const sectionRef = useRef<HTMLElement | null>(null);
     const [activeStage, setActiveStage] = useState(0);
     const [scrollDirection, setScrollDirection] = useState<ScrollDirection>(0);
+    const { dictionary } = useLanguage();
+    const aboutCopy = dictionary.about;
+    const aboutTitle = aboutCopy.title ?? "About";
+    const aboutStages = aboutCopy.stages ?? [];
+
+    const stageTextMap = useMemo(() => {
+        const entries = new Map<string, string>();
+        for (const stage of aboutStages) {
+            if (stage?.id) {
+                entries.set(stage.id, stage.text ?? "");
+            }
+        }
+        return entries;
+    }, [aboutStages]);
+
+    const stageConfigs: StageConfig[] = useMemo(
+        () =>
+            STAGE_LAYOUTS.map((layout) => ({
+                ...layout,
+                text: stageTextMap.get(layout.id) ?? "",
+            })),
+        [stageTextMap]
+    );
 
     useEffect(() => {
         const node = sectionRef.current;
@@ -69,7 +84,7 @@ export default function AboutSection() {
         const handleStageChange = (event: Event) => {
             const { detail } = event as CustomEvent<StageChangeDetail>;
             if (!detail) return;
-            const safeIndex = clampStageIndex(detail.stageIndex, STAGE_CONFIGS.length);
+            const safeIndex = clampStageIndex(detail.stageIndex, STAGE_COUNT);
             setActiveStage(safeIndex);
             setScrollDirection(detail.direction);
         };
@@ -78,7 +93,7 @@ export default function AboutSection() {
 
         const initialStage = Number(node.getAttribute("data-scroll-stage-index"));
         if (!Number.isNaN(initialStage)) {
-            setActiveStage(clampStageIndex(initialStage, STAGE_CONFIGS.length));
+            setActiveStage(clampStageIndex(initialStage, STAGE_COUNT));
         }
 
         return () => {
@@ -86,7 +101,7 @@ export default function AboutSection() {
         };
     }, []);
 
-    const currentStage = useMemo(() => STAGE_CONFIGS[activeStage], [activeStage]);
+    const currentStage = stageConfigs[activeStage] ?? stageConfigs[0];
     const exitX = scrollDirection > 0 ? "-12%" : scrollDirection < 0 ? "12%" : "0%";
     const verticalClass =
         currentStage.verticalPosition === "top"
@@ -109,11 +124,11 @@ export default function AboutSection() {
         <section
             id="about"
             ref={sectionRef}
-            data-scroll-stages={STAGE_CONFIGS.length}
+            data-scroll-stages={STAGE_COUNT}
             className="snap-start flex h-screen w-full shrink-0 flex-col bg-carbone px-6 py-16 text-sabbia-rame sm:px-12 lg:px-24"
         >
             <div className="mx-auto w-full max-w-5xl pt-12 text-center text-rame-sabbia">
-                <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">Chi sono</h1>
+                <h1 className="text-4xl font-bold uppercase sm:text-5xl lg:text-6xl">{aboutTitle}</h1>
             </div>
 
             <div className="relative mx-auto mt-4 flex w-full max-w-7xl flex-1 flex-col items-center overflow-hidden text-rame-sabbia/70 text-xl sm:mt-8 sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-4xl">

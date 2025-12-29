@@ -1,7 +1,8 @@
 'use client';
 
 import { Instagram, MessageCircle, Mail } from "lucide-react";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
+import { useLanguage } from "../providers/LanguageProvider";
 
 const CONTACT_INFO = {
     email: "michele.meloni2@icloud.com",
@@ -40,11 +41,31 @@ const CONTACT_METHODS = [
 ];
 
 export default function ContactSection() {
+    const { dictionary } = useLanguage();
+    const contactCopy = dictionary.contact ?? {};
+    const introTexts = contactCopy.intro ?? [];
+    const contactTitle = contactCopy.title ?? "Parliamone";
+
+    const contactMethods = useMemo(() => {
+        const localizedMethods = contactCopy.methods ?? [];
+        return CONTACT_METHODS.map((method) => {
+            const override = localizedMethods.find((item) => item?.id === method.id);
+            return {
+                ...method,
+                label: override?.label ?? method.label,
+                ariaLabel: override?.ariaLabel ?? method.ariaLabel,
+            };
+        });
+    }, [contactCopy.methods]);
+
+    const mailSubject = contactCopy.mailSubject ?? "Nuovo progetto";
+
     const handleMailClick = useCallback(() => {
         if (typeof window !== "undefined") {
-            window.location.href = CONTACT_INFO.mail;
+            const mailUrl = `mailto:gabriele.serra@yahoo.it?subject=${encodeURIComponent(mailSubject)}`;
+            window.location.href = mailUrl;
         }
-    }, []);
+    }, [mailSubject]);
 
     return (
         <section
@@ -52,16 +73,19 @@ export default function ContactSection() {
             className="snap-start flex min-h-screen w-full shrink-0 flex-col items-center justify-center bg-rame-sabbia text-carbone px-6 py-12 sm:px-12 lg:px-24"
         >
             <div className="mx-auto w-full max-w-5xl text-center text-carbone pb-8">
-                <h1 className="text-4xl font-bold uppercase sm:text-5xl md:text-6xl lg:text-6xl xl:text-6xl 2xl:text-6xl">Parliamone</h1>
+                <h1 className="text-4xl font-bold uppercase sm:text-5xl md:text-6xl lg:text-6xl xl:text-6xl 2xl:text-6xl">
+                    {contactTitle}
+                </h1>
             </div>
             <div className="text-center text-lg sm:text-lg md:text-lg xl:text-2xl 2xl:text-3xl text">
-                <h2>Pronto a dare forma al cuore del tuo brand?</h2>
-                <h2>Scrivimi per iniziare un nuovo progetto.</h2>
+                {introTexts.map((line, idx) => (
+                    <h2 key={`${line}-${idx}`}>{line}</h2>
+                ))}
             </div>
 
             <div className="mt-10 w-full max-w-5xl px-4">
                 <div className="flex w-full flex-col items-center gap-8 md:flex-row md:flex-wrap md:justify-center md:gap-16 lg:flex-nowrap lg:gap-24 xl:gap-32">
-                    {CONTACT_METHODS.map(({ id, icon: Icon, href, label, ariaLabel, external }) => {
+                    {contactMethods.map(({ id, icon: Icon, href, label, ariaLabel, external }) => {
                         const isMailLink = id === "mail";
                         return (
                             <div key={id} className="flex flex-col items-center text-center md:w-[220px] lg:w-[260px]">
