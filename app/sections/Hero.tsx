@@ -182,37 +182,41 @@ export default function Hero() {
                 </div>
 
                 <div className="min-h-[2.5rem] md:mt-2 md:min-h-[1.5rem] px-4 lg:-mt-4">
-                    {showSubtitle ? (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={showSubtitle ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+                        transition={{ duration: 0.6, ease: "easeIn" }}
+                        className="flex w-full flex-col items-center gap-4"
+                        aria-hidden={showSubtitle ? undefined : true}
+                    >
+                        <p className="text-xs font-semibold uppercase tracking-[0.32em] text-bianco sm:text-sm md:text-base">
+                            {subtitleText}
+                        </p>
                         <motion.div
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, ease: "easeIn" }}
-                            className="flex w-full flex-col items-center gap-4"
+                            initial={false}
+                            animate={showSubtitle ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+                            transition={{ duration: 0.45, ease: "easeOut", delay: showSubtitle ? 0.4 : 0 }}
+                            className={`mt-1 flex w-full max-w-xs flex-col gap-3 sm:hidden ${
+                                showSubtitle ? "" : "pointer-events-none select-none"
+                            }`}
+                            aria-hidden={showSubtitle ? undefined : true}
                         >
-                            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-bianco sm:text-sm md:text-base">
-                                {subtitleText}
-                            </p>
-                            <motion.div
-                                initial={{ opacity: 0, y: 12 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.45, ease: "easeOut", delay: 0.4 }}
-                                className="mt-1 flex w-full max-w-xs flex-col gap-3 sm:hidden"
+                            <Link
+                                href={ctaWorkHref}
+                                tabIndex={showSubtitle ? undefined : -1}
+                                className="inline-flex w-full items-center justify-center rounded-full border border-rame-sabbia bg-rame-sabbia px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-nero transition hover:translate-y-0.5 hover:bg-rame-sabbia/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rame-sabbia"
                             >
-                                <Link
-                                    href={ctaWorkHref}
-                                    className="inline-flex w-full items-center justify-center rounded-full border border-rame-sabbia bg-rame-sabbia px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-nero transition hover:translate-y-0.5 hover:bg-rame-sabbia/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rame-sabbia"
-                                >
-                                    {ctaWorkLabel}
-                                </Link>
-                                <Link
-                                    href={ctaContactHref}
-                                    className="inline-flex w-full items-center justify-center rounded-full border border-bianco/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-bianco transition hover:-translate-y-0.5 hover:border-bianco/60 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rame-sabbia"
-                                >
-                                    {ctaContactLabel}
-                                </Link>
-                            </motion.div>
+                                {ctaWorkLabel}
+                            </Link>
+                            <Link
+                                href={ctaContactHref}
+                                tabIndex={showSubtitle ? undefined : -1}
+                                className="inline-flex w-full items-center justify-center rounded-full border border-bianco/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-bianco transition hover:-translate-y-0.5 hover:border-bianco/60 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rame-sabbia"
+                            >
+                                {ctaContactLabel}
+                            </Link>
                         </motion.div>
-                    ) : null}
+                    </motion.div>
                 </div>
             </div>
         </section>
