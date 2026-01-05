@@ -28,7 +28,11 @@
     "logoAlt": "Icono de Core palpitando",
     "headlineFirst": "DEL CORAZÓN",
     "headlineSecond": "A LA FORMA",
-    "subtitle": "DONDE LA VISIÓN COBRA FORMA"
+    "subtitle": "DONDE LA VISIÓN COBRA FORMA",
+    "ctaWorkLabel": "Ver proyectos",
+    "ctaWorkHref": "#projects",
+    "ctaContactLabel": "Contáctame",
+    "ctaContactHref": "#contacts"
   },
   "about": {
     "title": "Quién soy",
