@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="it" className="max-w-full overflow-x-hidden overscroll-x-none">
+    <html lang="en" className="max-w-full overflow-x-hidden overscroll-x-none">
       <body
         className={`${montserratRegular.variable} ${montserratBold.variable} bg-[#030303] text-white antialiased overflow-x-clip`}
       >
