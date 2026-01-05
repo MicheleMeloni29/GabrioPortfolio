@@ -28,7 +28,11 @@
     "logoAlt": "Icona Core pulsante",
     "headlineFirst": "DAL CUORE",
     "headlineSecond": "ALLA FORMA",
-    "subtitle": "DOVE LA VISIONE PRENDE FORMA"
+    "subtitle": "DOVE LA VISIONE PRENDE FORMA",
+    "ctaWorkLabel": "Vai ai progetti",
+    "ctaWorkHref": "#projects",
+    "ctaContactLabel": "Contattami",
+    "ctaContactHref": "#contacts"
   },
   "about": {
     "title": "Chi sono",

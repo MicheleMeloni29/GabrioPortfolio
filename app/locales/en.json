@@ -28,7 +28,11 @@
     "logoAlt": "Beating Core icon",
     "headlineFirst": "FROM HEART",
     "headlineSecond": "TO FORM",
-    "subtitle": "WHERE VISION TAKES SHAPE"
+    "subtitle": "WHERE VISION TAKES SHAPE",
+    "ctaWorkLabel": "Explore projects",
+    "ctaWorkHref": "#projects",
+    "ctaContactLabel": "Contact me",
+    "ctaContactHref": "#contacts"
   },
   "about": {
     "title": "About me",

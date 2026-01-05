@@ -13,4 +13,4 @@ export const translations: Record<Locale, Translations> = {
   es,
 };
 
-export const FALLBACK_LOCALE: Locale = 'it';
+export const FALLBACK_LOCALE: Locale = 'en';

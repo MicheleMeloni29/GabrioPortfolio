@@ -1,6 +1,7 @@
 'use client';
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -23,6 +24,10 @@ export default function Hero() {
     const firstText = heroCopy.headlineFirst ?? "";
     const secondText = heroCopy.headlineSecond ?? "";
     const subtitleText = heroCopy.subtitle ?? "";
+    const ctaWorkLabel = heroCopy.ctaWorkLabel ?? "Explore projects";
+    const ctaWorkHref = heroCopy.ctaWorkHref ?? "#projects";
+    const ctaContactLabel = heroCopy.ctaContactLabel ?? "Contact me";
+    const ctaContactHref = heroCopy.ctaContactHref ?? "#contacts";
     const logoAlt = heroCopy.logoAlt ?? "Hero logo";
 
     const [showFirstSplit, setShowFirstSplit] = useState(false);
@@ -178,14 +183,35 @@ export default function Hero() {
 
                 <div className="min-h-[2.5rem] md:mt-2 md:min-h-[1.5rem] px-4 lg:-mt-4">
                     {showSubtitle ? (
-                        <motion.p
+                        <motion.div
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, ease: "easeIn" }}
-                            className="text-xs font-semibold uppercase tracking-[0.32em] text-bianco sm:text-sm md:text-base"
+                            className="flex w-full flex-col items-center gap-4"
                         >
-                            {subtitleText}
-                        </motion.p>
+                            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-bianco sm:text-sm md:text-base">
+                                {subtitleText}
+                            </p>
+                            <motion.div
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.45, ease: "easeOut", delay: 0.4 }}
+                                className="mt-1 flex w-full max-w-xs flex-col gap-3 sm:hidden"
+                            >
+                                <Link
+                                    href={ctaWorkHref}
+                                    className="inline-flex w-full items-center justify-center rounded-full border border-rame-sabbia bg-rame-sabbia px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-nero transition hover:translate-y-0.5 hover:bg-rame-sabbia/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rame-sabbia"
+                                >
+                                    {ctaWorkLabel}
+                                </Link>
+                                <Link
+                                    href={ctaContactHref}
+                                    className="inline-flex w-full items-center justify-center rounded-full border border-bianco/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.28em] text-bianco transition hover:-translate-y-0.5 hover:border-bianco/60 hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rame-sabbia"
+                                >
+                                    {ctaContactLabel}
+                                </Link>
+                            </motion.div>
+                        </motion.div>
                     ) : null}
                 </div>
             </div>
