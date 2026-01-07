@@ -125,15 +125,18 @@
     "items": [
       {
         "id": "fish-shop",
+        "title": "FISH SHOP",
         "description": "Fresh - Local - Bright"
       },
       {
-        "id": "VI-miglio",
-        "description": "Sport • Belonging • Identity"
+        "id": "luca-pizza",
+        "title": "LUCA PIZZA",
+        "description": "Direct - Recognizable - Essential"
       },
       {
-        "id": "luca-pizza",
-        "description": "Direct • Recognizable • Essential"
+        "id": "VI-miglio",
+        "title": "VI MIGLIO ASD",
+        "description": "Sport - Belonging - Identity"
       }
     ]
   },

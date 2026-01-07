@@ -122,21 +122,24 @@
       "list": "Proyectos destacados",
       "indicator": "Mostrar el proyecto {{title}}"
     },
-   "items": [
-    {
-      "id": "fish-shop",
-      "description": "Fresco • Local • Claro"
-    },
-    {
-      "id": "VI-miglio",
-      "description": "Deporte • Pertenencia • Identidad"
-    },
-    {
-      "id": "luca-pizza",
-      "description": "Directo • Reconocible • Esencial"
-    }
-  ]
-},
+    "items": [
+      {
+        "id": "fish-shop",
+        "title": "FISH SHOP",
+        "description": "Fresco - Local - Claro"
+      },
+      {
+        "id": "luca-pizza",
+        "title": "LUCA PIZZA",
+        "description": "Directo - Reconocible - Esencial"
+      },
+      {
+        "id": "VI-miglio",
+        "title": "VI MIGLIO ASD",
+        "description": "Deporte - Pertenencia - Identidad"
+      }
+    ]
+  },
   "whyCore": {
     "title": "Por qué Core",
     "outerRingText": " CADA MARCA TIENE UN CORAZÓN  -",
