@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Montserrat } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "./providers/LanguageProvider";
+import { Analytics } from '@vercel/analytics/next';
 
 
 const montserratRegular = Montserrat({
@@ -37,6 +38,7 @@ export default function RootLayout({
         className={`${montserratRegular.variable} ${montserratBold.variable} bg-[#030303] text-white antialiased overflow-x-clip`}
       >
         <LanguageProvider>{children}</LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );
