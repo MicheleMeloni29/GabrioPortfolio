@@ -124,29 +124,16 @@
     },
     "items": [
       {
-        "id": "reverse-pub",
-        "title": "Reverse Pub",
-        "description": "Visual identity, flyer, palette, communication style."
+        "id": "fish-shop",
+        "description": "Fresh - Local - Bright"
       },
       {
-        "id": "pescheria-fresco",
-        "title": "Pescheria Fresco",
-        "description": "Identity and social kit. Cards, feed layout, basic website."
+        "id": "VI-miglio",
+        "description": "Sport • Belonging • Identity"
       },
       {
-        "id": "elite-five-cup",
-        "title": "Elite Five Cup",
-        "description": "Sport-inspired visuals, posters, event identity, social branding."
-      },
-      {
-        "id": "ricevitoria-superenalotto",
-        "title": "Ricevitoria Superenalotto",
-        "description": "Local communication, displays, printed materials."
-      },
-      {
-        "id": "v-miglio-sestu",
-        "title": "V Miglio Sestu",
-        "description": "Local communication, displays, printed materials."
+        "id": "luca-pizza",
+        "description": "Direct • Recognizable • Essential"
       }
     ]
   },

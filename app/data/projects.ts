@@ -1,8 +1,9 @@
 export type ProjectPreview = {
     id: string;
     title: string;
+    subtitle: string;
     description: string;
-    coverGradient: string;
+    coverImage: string;
     images: Array<{
         id: string;
         gradient: string;
@@ -11,68 +12,43 @@ export type ProjectPreview = {
 
 export const projectsData: readonly ProjectPreview[] = [
     {
-        id: "reverse-pub",
-        title: "Reverse Pub",
-        description:
-            "Brand Visual, Flyer, palette, stile comunicazione",
-        coverGradient: "linear-gradient(135deg,#F7EDD4,#E9CFA5,#B98B5A)",
+        id: "fish-shop",
+        title: "FISH SHOP",
+        subtitle: "Pescheria - Sestu (CA)",
+        description: "Fresco • Locale • Chiaro",
+        coverImage: "/images/projects/FishShop/FishShop.png",
         images: [
-            { id: "mood", gradient: "linear-gradient(135deg,#F1CAB8,#EA8C55)" },
-            { id: "packaging", gradient: "linear-gradient(135deg,#FDF0CB,#F3C178)" },
-            { id: "editorial", gradient: "linear-gradient(135deg,#F3D9DC,#CBA0B1)" },
-            { id: "digital", gradient: "linear-gradient(135deg,#FFE1C6,#F37381)" },
+            { id: "blu mare", gradient: "linear-gradient(#0B63B6)" },
+            { id: "azzurro chiaro", gradient: "linear-gradient(#6FAED9)" },
+            { id: "bianco ghiaccio", gradient: "linear-gradient(#F5F7F8)" },
+            { id: "grigio antracite", gradient: "linear-gradient(#2E2E2E)" },
         ],
     },
     {
-        id: "pescheria-fresco",
-        title: "Pescheria Fresco",
-        description:
-            "Identita' e social kit. Biglietti, layout feed, sito base",
-        coverGradient: "linear-gradient(135deg,#0D0D0D,#212425)",
+        id: "luca-pizza",
+        title: "LUCA PIZZA",
+        subtitle: "Pizzeria - Sardegna (ITA)",
+        description: "Diretto • Riconoscibile • Essenziale",
+        coverImage: "/images/projects/LucaPizza/LucaPizza.png",
         images: [
-            { id: "stampa", gradient: "linear-gradient(135deg,#4F5F73,#94A6B3)" },
-            { id: "poster", gradient: "linear-gradient(135deg,#B98B5A,#F2D0A9)" },
-            { id: "set", gradient: "linear-gradient(135deg,#1C1C1C,#595959)" },
-            { id: "lookbook", gradient: "linear-gradient(135deg,#FFCFDF,#F3A6D3)" },
+            { id: "rosso pizza", gradient: "linear-gradient(#C62828)" },
+            { id: "nero carbone", gradient: "linear-gradient(#1E1E1E)" },
+            { id: "bianco panna", gradient: "linear-gradient(#FAFAF7)" },
+            { id: "verde oliva", gradient: "linear-gradient(#3F6B3C)" },
         ],
     },
     {
-        id: "elite-five-cup",
-        title: "Elite Five Cup",
-        description:
-            "Visual Sportivo, Locandine, identita' evento, social branding.",
-        coverGradient: "linear-gradient(135deg,#FEE3EC,#B087B8)",
+        id: "VI-miglio",
+        title: "VI MIGLIO ASD",
+        subtitle: "Padel - Sestu (CA)",
+        description: "Sport • Appartenenza • Identità",
+        coverImage: "/images/projects/VI_Miglio/VI_Miglio.jpeg",
         images: [
-            { id: "lookbook", gradient: "linear-gradient(135deg,#FFCFDF,#F3A6D3)" },
-            { id: "details", gradient: "linear-gradient(135deg,#D3BBDD,#A594F9)" },
-            { id: "paper", gradient: "linear-gradient(135deg,#FDF2E9,#F9C784)" },
-            { id: "backstage", gradient: "linear-gradient(135deg,#2E1F27,#6C4A4A)" },
+            { id: "blu sport", gradient: "linear-gradient(#0A4E8A)" },
+            { id: "azzurro campo", gradient: "linear-gradient(#4FA3D1)" },
+            { id: "beige sabbia", gradient: "linear-gradient(#D2B48C)" },
+            { id: "bianco puro", gradient: "linear-gradient(#FFFFFF)" },
         ],
     },
-    {
-        id: "ricevitoria-superenalotto",
-        title: "Ricevitoria Superenalotto",
-        description:
-            "Comunicazione locale, display, materiali stampati.",
-        coverGradient: "linear-gradient(135deg,#0D0D0D,#4A1F3D)",
-        images: [
-            { id: "totem", gradient: "linear-gradient(135deg,#281C2D,#614051)" },
-            { id: "motion", gradient: "linear-gradient(135deg,#C33764,#1D2671)" },
-            { id: "map", gradient: "linear-gradient(135deg,#302B63,#0F0C29)" },
-            { id: "gift", gradient: "linear-gradient(135deg,#FF8C42,#FF3C38)" },
-        ],
-    },
-    {
-        id: "V-miglio-sestu",
-        title: "V Miglio Sestu",
-        description:
-            "Comunicazione locale, display, materiali stampati.",
-        coverGradient: "linear-gradient(135deg,#0D0D0D,#4A1F3D)",
-        images: [
-            { id: "totem", gradient: "linear-gradient(135deg,#281C2D,#614051)" },
-            { id: "motion", gradient: "linear-gradient(135deg,#C33764,#1D2671)" },
-            { id: "map", gradient: "linear-gradient(135deg,#302B63,#0F0C29)" },
-            { id: "gift", gradient: "linear-gradient(135deg,#FF8C42,#FF3C38)" },
-        ],
-    },
+    
 ] as const;

@@ -11,6 +11,26 @@ const MIDDLE_LOOP_INDEX = Math.floor(LOOP_MULTIPLIER / 2);
 const formatIndicator = (template: string, title: string) =>
     template.replace(/\{\{\s*title\s*\}\}/g, title);
 
+const normalizeCoverImage = (coverImage: string) => {
+    if (coverImage.startsWith("public/")) {
+        return `/${coverImage.slice("public/".length)}`;
+    }
+    return coverImage;
+};
+
+const getCoverStyle = (coverImage: string) => {
+    const normalizedCover = normalizeCoverImage(coverImage);
+    if (/gradient\(/i.test(normalizedCover)) {
+        return { background: normalizedCover };
+    }
+    return {
+        backgroundImage: `url(${normalizedCover})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+    } as const;
+};
+
 export default function ProjectsSection() {
     const { dictionary } = useLanguage();
     const projectsCopy = dictionary.projects;
@@ -281,12 +301,12 @@ export default function ProjectsSection() {
                                 key={`${project.id}-${loopIndex}`}
                                 role="listitem"
                                 aria-hidden={loopIndex !== MIDDLE_LOOP_INDEX}
-                                className="flex min-w-[240px] flex-col rounded-3xl bg-white/5 p-4 text-left shadow-lg shadow-black/30 backdrop-blur 
-                                        sm:min-w-[220px] md:min-w-[300px] lg:min-w-[320px] xl:min-w-[400px] max-h-[80vh] snap-center"
+                                className="flex min-w-[240px] flex-col rounded-3xl bg-white/5 p-4 shadow-lg shadow-black/30 backdrop-blur 
+                                        sm:min-w-[220px] md:min-w-[300px] lg:min-w-[320px] xl:min-w-[400px] max-h-[80vh] snap-center leading-relaxed text-center"
                             >
                                 <div
                                     className="relative aspect-4/3 w-full overflow-hidden rounded-2xl sm:aspect-video"
-                                    style={{ background: project.coverGradient }}
+                                    style={getCoverStyle(project.coverImage)}
                                 ></div>
 
                                 <div className="mt-3 grid grid-cols-4 gap-1.5 sm:grid-cols-4">
@@ -301,10 +321,13 @@ export default function ProjectsSection() {
                                     ))}
                                 </div>
 
-                                <h3 className="mt-22 md:mt-18 lg:mt-20 xl:mt-28 text-lg font-semibold text-rame-sabbia">
+                                <h2 className="mt-22 md:mt-18 lg:mt-20 xl:mt-28 text-lg font-semibold text-rame-sabbia">
                                     {project.title}
+                                </h2>
+                                <h3 className="mt-2 text-md text-rame-sabbia/80">
+                                    {project.subtitle}
                                 </h3>
-                                <p className="mt-1 text-sm leading-relaxed text-rame-sabbia/70">
+                                <p className="mt-4 text-sm text-rame-sabbia/60">
                                     {project.description}
                                 </p>
                             </article>

@@ -122,34 +122,21 @@
       "list": "Proyectos destacados",
       "indicator": "Mostrar el proyecto {{title}}"
     },
-    "items": [
-      {
-        "id": "reverse-pub",
-        "title": "Reverse Pub",
-        "description": "Identidad visual, folleto, paleta de colores, estilo de comunicación."
-      },
-      {
-        "id": "pescheria-fresco",
-        "title": "Pescheria Fresco",
-        "description": "Identidad y kit social. Tarjetas, layout del feed, sitio web básico."
-      },
-      {
-        "id": "elite-five-cup",
-        "title": "Elite Five Cup",
-        "description": "Imágenes inspiradas en el deporte, carteles, identidad de eventos, branding social."
-      },
-      {
-        "id": "ricevitoria-superenalotto",
-        "title": "Ricevitoria Superenalotto",
-        "description": "Comunicación local, displays, materiales impresos."
-      },
-      {
-        "id": "v-miglio-sestu",
-        "title": "V Miglio Sestu",
-        "description": "Comunicación local, displays, materiales impresos."
-      }
-    ]
-  },
+   "items": [
+    {
+      "id": "fish-shop",
+      "description": "Fresco • Local • Claro"
+    },
+    {
+      "id": "VI-miglio",
+      "description": "Deporte • Pertenencia • Identidad"
+    },
+    {
+      "id": "luca-pizza",
+      "description": "Directo • Reconocible • Esencial"
+    }
+  ]
+},
   "whyCore": {
     "title": "Por qué Core",
     "outerRingText": " CADA MARCA TIENE UN CORAZÓN  -",
@@ -176,7 +163,7 @@
       },
       {
         "id": "mail",
-        "label": "gabriele.serra@yahoo.it",
+        "label": "Gabriele.serra97@yahoo.it",
         "ariaLabel": "Enviar un correo"
       }
     ]
