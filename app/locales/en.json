@@ -156,15 +156,18 @@
     "methods": [
       {
         "id": "instagram",
-        "ariaLabel": "Open the Instagram profile"
+        "ariaLabel": "Open the Instagram profile",
+        "label": "@corestudio_design"
       },
       {
         "id": "whatsapp",
-        "ariaLabel": "Open the WhatsApp chat"
+        "ariaLabel": "Open the WhatsApp chat",
+        "label": "WhatsApp: +39 347 372 8852"
       },
       {
         "id": "mail",
-        "ariaLabel": "Send an email"
+        "ariaLabel": "Send an email",
+        "label": "gabriele.serra@yahoo.it"
       }
     ]
   }

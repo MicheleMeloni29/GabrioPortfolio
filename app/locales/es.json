@@ -166,7 +166,8 @@
       },
       {
         "id": "mail",
-        "ariaLabel": "Enviar un correo"
+        "ariaLabel": "Enviar un correo",
+        "label": "gabriele.serra@yahoo.it"
       }
     ]
   }
