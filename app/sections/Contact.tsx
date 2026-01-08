@@ -10,7 +10,7 @@ const CONTACT_INFO = {
     whatsapp: "https://wa.me/393473728852",
     whatsappLabel: "+39 347 372 8852",
     mail: "mailto:gabriele.serra@yahoo.it?subject=Nuovo%20progetto",
-    mailLabel: "gabriele.serra@yahoo.it",
+    mailLabel: "Gabriele.serra97@yahoo.it",
 };
 
 const CONTACT_METHODS = [
